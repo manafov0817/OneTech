@@ -1,0 +1,366 @@
+﻿@model Product
+<section class="product-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-2 order-lg-1 order-2 product-photos" id="mainProductPhotos">
+                @foreach (ProductPhoto productPhoto in Model.ProductPhotos)
+                {
+                    <div class="product-photo">
+                        <img src="~/img/Products/@productPhoto.Photo.Path" alt="">
+                    </div>
+                }
+            </div>
+   
+            <div class="col-lg-5 order-lg-2 order-1">
+                <div id="selected-image">
+                    <img src="~/img/Products/@Model.ProductPhotos[0].Photo.Path" alt="">
+                </div>
+            </div>
+
+
+            <div class="col-lg-5 order-3">
+                <div class="product-info-content">
+                    <div class="product-info">
+                        @if (Model.ProductMainCategories.Count( ) > 0)
+                        {
+                            foreach (ProductMainCategory productMainCategory in Model.ProductMainCategories)
+                            {
+                                <div class="product-category">
+                                    <a href="@Url.Action("Index","Shop",new { categoryId= ("m"+productMainCategory.MainCategoryId)})"> @productMainCategory.MainCategory.Name </a>
+                                </div>
+                            }
+                        }
+                        @if (Model.ProductCategories.Count( ) > 0)
+                        {
+
+                            foreach (ProductCategory productCategory in Model.ProductCategories)
+                            {
+                                <div class="product-category">
+                                    <a href="@Url.Action("Index","Shop",new { categoryId= ("c"+productCategory.CategoryId)})">@productCategory.Category.Name</a>
+                                </div>
+                            }
+                        }
+                        @if (Model.ProductSubCategories.Count( ) > 0)
+                        {
+                            foreach (ProductSubCategory productSubCategory in Model.ProductSubCategories)
+                            {
+                                <div class="product-category">
+                                    <a href="@Url.Action("Index","Shop",new { categoryId= ("s"+productSubCategory.SubCategoryId)})">@productSubCategory.SubCategory.Name</a>
+                                </div>
+                            }
+                        }
+
+                        <div class="product-name" id="mainProductName"> @Model.Name</div>
+
+       
+                        <div class="product-rate">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+
+                        <div class="product-description">
+                            @Html.Raw(Model.Description)
+                        </div>
+
+                    </div>
+                    <form action="" class="product-form">
+                        <div class="product-options">
+                            <div class="quantity">
+                                <label for="quantity">Quantity: </label>
+                                <input type="number" id="quantity" name="quantity" min="0" max="@Model.Quantity" value="1">
+                            </div>
+
+                            <div class="product-color-container row">
+                                <span> Color:</span>
+                                @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                {
+                                    if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
+                                    {
+                                        string[] color = productOptionValue.OptionValue.Name.Split("#");
+                                        <div id="current-product-color">
+                                            <div style="background-color: #@color[1];"></div>
+                                        </div>
+                                    }
+                                }
+                                <ul>
+
+                                    @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                    {
+                                        if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
+                                        {
+                                            string[] color = productOptionValue.OptionValue.Name.Split("#");
+                                            <li class="color-choice" id="mainProductColor">
+                                                <div style="background-color: #@color[1];"></div>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                                <div class="color-down"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="product-price" id="mainProductPrices">
+                            $ @Model.SellingPrice
+                        </div>
+                                
+
+                        <div class="button-container">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="add-to-cart-button ">
+                                    <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                </div>
+                            }
+                            <div class="add-wishlist">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="product-prop order-4">
+
+                <table class="table table-striped table-hover">
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Property Name</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (ProductOptionValue productOptionValue1 in Model.ProductOptionValues)
+                        {
+                            if (productOptionValue1.OptionValue.Option.Name.ToLower( ) != "color")
+                            {
+                                <tr>
+                                    <td>@productOptionValue1.OptionValue.Option.Name</td>
+                                    <td>@productOptionValue1.OptionValue.Name</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Section 11 Start-->
+<section class="section11">
+    <div class="recently_viewed_main_container">
+        <div class="container">
+            <div class="recently_viewed_title row">
+                <h3>Recently Viewed</h3>
+                <div class="recently_viewed_nav row">
+                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="recently_viewed_line"> </div>
+            <div class="recently_viewed_container">
+                <div class="owl-container">
+                    <div class="owl-carousel owl-theme">
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_1.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_2.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_3.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_4.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_5.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_6.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_1.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_2.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_3.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_4.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_5.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                        <item>
+                            <div class="recently_viewed">
+                                <div class="recently_viewed_photo">
+                                    <img src="img/view_6.jpg" alt="">
+                                </div>
+                                <div class="recently_viewed_content">
+                                    <div class="recently_viewed_price">$350</div>
+                                    <div class="recently_viewed_name">Luna Smartphone</div>
+                                </div>
+                            </div>
+                        </item>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section 11 End-->
+<!-- Section 12 Start-->
+<section class="section12">
+    <div class="brands_main_container">
+        <div class="container">
+            <div class="brands_container">
+                <div class="brands_left"><i class="fas fa-chevron-left"></i></div>
+                <div class="brands_right"><i class="fas fa-chevron-right"></i></div>
+                <div class="owl-container">
+                    <div class="owl-carousel owl-theme">
+                        <div class="owl_item">
+                            <img src="img/brands_1.jpg" alt="">
+                        </div>
+                        <div class="owl_item">
+                            <img src="img/brands_2.jpg" alt="">
+                        </div>
+                        <div class="owl_item">
+                            <img src="img/brands_3.jpg" alt="">
+                        </div>
+                        <div class="owl_item">
+                            <img src="img/brands_4.jpg" alt="">
+                        </div>
+                        <div class="owl_item">
+                            <img src="img/brands_5.jpg" alt="">
+                        </div>
+                        <div class="owl_item">
+                            <img src="img/brands_6.jpg" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section 12 End-->
+
+<script>
+    document.querySelector(".product-info-content .add-wishlist").addEventListener("click", function () {
+        document.querySelector(".product-info-content .add-wishlist i").classList.toggle("active");
+    })
+</script>

@@ -1,0 +1,69 @@
+﻿@model List<OptionValue>
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Color")">Colors</a>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a href="@Url.Action("Create","Color")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card company">
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Color View & Name</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count( ) > 0)
+                                {
+                                    @foreach (OptionValue color in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @color.Id
+                                            </td>
+                                            <td>
+                                                @{
+                                                    string[] arr = color.Name.Split('#');
+                                                }
+                                                <div class="media">
+                                                    <div style="background-color:#@arr[1]; border-radius:50%" class="mr-3 wth-35 hgt-35" alt="..."></div>
+                                                    <div class="media-body company-details">
+                                                        <h5>@arr[0]</h5>
+                                                        <span>#@arr[1]</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Edit","Color",new { colorId = color.Id})">Edit</a>
+
+                                                        <a onclick="return confirm('Are you sure to delete?')" class="dropdown-item" href="@Url.Action("Delete","Color", new { colorId = color.Id})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

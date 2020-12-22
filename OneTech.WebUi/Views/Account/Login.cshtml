@@ -1,0 +1,65 @@
+﻿@model LoginModel
+@{ 
+    
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="~/css/media.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <title>Login</title>
+</head>
+
+<body style="background-color: #f1f1f1;">
+    <section class="login_section">
+        <div class="container">
+            <div class="login_container mt-5">
+                <div>
+                    <div class="logo">
+                        <a href="@Url.Action("Index","Home")">OneTech</a>
+                    </div>
+                    <div class="form_tag">
+                        <form action="@Url.Action("Login","Account")" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <label asp-for="Username">Username or Email</label>
+                            <br>
+                            <input asp-for="Username" placeholder="example@email.edu"
+                                   required="required" class="username">
+                            <br>
+
+
+                            <label asp-for="Password">Password</label>
+                            <br>
+                            <input asp-for="Password" required="required" class="password">
+                            <br>
+
+
+                            <button type="submit" class="login">Login</button>
+
+                        </form>
+                    </div>
+                    <div class="new_to_onetech">New to OneTech?</div>
+                    <a href="@Url.Action("Register","Account")" class="register">Register</a>
+                    <a href="@Url.Action("ForgotPassword","Account")" class="forgot_password">Forgot Password?</a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+</body>
+
+</html>

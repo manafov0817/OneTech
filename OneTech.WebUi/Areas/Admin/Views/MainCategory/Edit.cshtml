@@ -1,0 +1,44 @@
+﻿@model MainCategoryEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","MainCategory")">Main Categories</a>
+                    <span>Add</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="card pdn-20 pdn-sm-40 pdn-t-20-imp">
+                <form class="needs-validation" novalidate="novalidate"
+                      method="post" action="@Url.Action("Edit","MainCategory")">
+
+                    <input asp-for="Id" hidden value="@Model.Id" />
+                    <div class="form-row">
+                        <div class="col-md-12 mb-4">
+                            <label asp-for="Name">Main Category Name</label>
+                            <input asp-for="Name" class="form-control" id="name">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-2">
+                            <label asp-for="Description">Main Category Description</label>
+                            <input asp-for="Description" class="form-control" id="description">
+                            <span class="text-danger" asp-validation-for="Description"></span>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-primary mgn-t-25" type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- ./card -->
+</div>

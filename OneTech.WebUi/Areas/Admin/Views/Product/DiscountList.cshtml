@@ -1,0 +1,90 @@
+﻿@model List<Product>
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Product")">Discounted Products</a>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a href="@Url.Action("Index","Product")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add Discount</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Without Discount</th>
+                                    <th scope="col">With Discount</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count( ) > 0)
+                                {
+                                    @foreach (Product product in Model)
+                                    {
+                                        <tr>
+                                            <td>@product.Id</td>
+                                            <td>
+                                                <div class="media">
+                                                    <img src="~/img/Products/@product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                                </div>
+                                            </td>
+                                            <td>@product.Name</td>
+                                            <td>
+                                                @if (product.DiscountWithMoney > 0)
+                                                {
+                                                    <span>- @product.DiscountWithMoney $</span>
+                                                }
+                                                else if (product.DiscountWithPercent > 0)
+                                                {
+                                                    <span>- @product.DiscountWithPercent %</span>
+                                                }
+                                            </td>
+                                            <td>@product.SellingPrice</td>
+                                            <td>
+                                                @if (product.DiscountWithMoney > 0)
+                                                {
+                                                    @(product.SellingPrice - product.DiscountWithMoney)
+                                                }
+                                                else if (product.DiscountWithPercent > 0)
+                                                {
+                                                    @(product.SellingPrice - ((int)product.SellingPrice * product.DiscountWithPercent /  100))
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a onclick="return confirm('Are you sure to delete?')"
+                                                           class="dropdown-item"
+                                                           href="@Url.Action("RemoveDiscount","Product", new { productId = product.Id})">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

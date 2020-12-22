@@ -1,0 +1,239 @@
+﻿@model Product
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Product")">Product</a>
+                    <span>Single Product</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a href="@Url.Action("ProductColorList","Product",new { productId = Model.Id})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Color Option List</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bdr-t-0">
+                    <div class="card-body">
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="elevate-wrapper">
+                                            <a id="choosenImage" class="elevate-img-link">
+                                                <img src="~/img/Products/@Model.ProductPhotos[0].Photo.Path" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="elevate-gallery">
+                                            <div class="gallery">
+                                                <div id="mainProductPhotos">
+                                                    @foreach (ProductPhoto productPhoto in Model.ProductPhotos)
+                                                    {
+                                                        <a href="#" class="galleryPhotos" data-image="~/img/Products/@productPhoto.Photo.Path" data-zoom-image="~/img/Products/@productPhoto.Photo.Path">
+                                                            <img src="~/img/Products/@productPhoto.Photo.Path" alt="" />
+                                                        </a>
+                                                    }
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2 product-details-info">
+                                <h2 class="" id="mainProductName">
+                                    @Model.Name
+                              </h2>
+                                @*here*@
+                                <div id="mainProductPrices">
+                                    <span class="txt-24 text-secondary d-block">Purchase Price: $@Model.PurchasePrice</span>
+                                    <span class="txt-24 text-secondary d-block">Selling Price: $@Model.SellingPrice</span>
+                                </div>
+                              
+                                <hr class="header-divider">
+                                <span class="availability d-block text-primary">@Model.Quantity In Stock</span>
+                                <span class="soldqty d-block text-danger">@Model.Sold Sold</span>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td class="value" id="mainProductColor">
+                                                <div class="product-switches">
+                                                    @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                                    {
+                                                        if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
+                                                        {
+                                                            string[] color = productOptionValue.OptionValue.Name.Split("#");
+                                                            <span class="switch-label switch-color" title="color[0]" style="background-color:#@color[1]"></span>
+                                                        }
+                                                    }
+                                                </div>
+                                            </td>
+                                           
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="mgn-t-15 mgn-b-25">
+                                    <div class="txt-14 text-secondary">
+                                        @if (Model.ProductMainCategories.Count( ) > 0)
+                                        {
+                                            <div class="txt-20">
+                                                Main Categories
+                                            </div>
+                                            foreach (ProductMainCategory productMainCategory in Model.ProductMainCategories)
+                                            {
+                                                <span class="txt-16 text-secondary d-block">@productMainCategory.MainCategory.Name</span>
+                                            }
+
+                                        }
+                                        @if (Model.ProductCategories.Count( ) > 0)
+                                        {
+                                            <div class="txt-20  d-block">
+                                                Categories
+                                            </div>
+                                            foreach (ProductCategory productCategory in Model.ProductCategories)
+                                            {
+                                                <span class="txt-16  d-block">@productCategory.Category.Name</span>
+                                            }
+                                        }
+                                        @if (Model.ProductSubCategories.Count( ) > 0)
+                                        {
+                                            <div class="txt-20  d-block">
+                                                SubCategories:
+                                            </div>
+                                            foreach (ProductSubCategory productsubCategory in Model.ProductSubCategories)
+                                            {
+                                                <span class="txt-16 d-block">@productsubCategory.SubCategory.Name</span>
+                                            }
+                                        }
+                                        <br>
+                                        <div class="txt-20  d-block">
+                                            Options:
+                                        </div>
+                                        @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                        {
+                                            if (productOptionValue.OptionValue.Option.Name.ToLower( ) != "color")
+                                            {
+                                                <span class="txt-16 d-block">@productOptionValue.OptionValue.Option.Name: @productOptionValue.OptionValue.Name</span>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>Description</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        @Html.Raw(@Model.Description)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6>Related Product</h6>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="row row-xs">
+                                                <div class="col-md-3 col-xs-12 mb-2">
+                                                    <div class="related-products">
+                                                        <img src="assets/images/products/sqr/product-sqr-4.png" alt="madol admin template">
+                                                        <a href="single-product.html">
+                                                            <div class="overlay"></div>
+                                                            <div class="related-products-link">
+                                                                <i class="icon-eye"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info text-center">
+                                                        <div class="related-name">
+                                                            <a href="single-product.html">
+                                                                Female Skirt
+                                                            </a>
+                                                        </div>
+                                                        <div class="related-price">
+                                                            $25
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 mb-2">
+                                                    <div class="related-products">
+                                                        <img src="assets/images/products/sqr/product-sqr-12.png" alt="madol admin template">
+                                                        <a href="#">
+                                                            <div class="overlay"></div>
+                                                            <div class="related-products-link">
+                                                                <i class="icon-eye"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info text-center">
+                                                        <div class="related-name">
+                                                            <a href="single-product.html">
+                                                                Diamond Necklace
+                                                            </a>
+                                                        </div>
+                                                        <div class="related-price">
+                                                            $25
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 mb-2">
+                                                    <div class="related-products">
+                                                        <img src="assets/images/products/sqr/product-sqr-8.png" alt="madol admin template">
+                                                        <a href="#">
+                                                            <div class="overlay"></div>
+                                                            <div class="related-products-link">
+                                                                <i class="icon-eye"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info text-center">
+                                                        <div class="related-name">
+                                                            <a href="single-product.html">
+                                                                Silver Necklace
+                                                            </a>
+                                                        </div>
+                                                        <div class="related-price">
+                                                            $25
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 mb-2">
+                                                    <div class="related-products">
+                                                        <img src="assets/images/products/sqr/product-sqr-12.png" alt="madol admin template">
+                                                        <a href="#">
+                                                            <div class="overlay"></div>
+                                                            <div class="related-products-link">
+                                                                <i class="icon-eye"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info text-center">
+                                                        <div class="related-name">
+                                                            <a href="s.html#">
+                                                                Gucci Handbag
+                                                            </a>
+                                                        </div>
+                                                        <div class="related-price">
+                                                            $25
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

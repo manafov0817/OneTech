@@ -1,0 +1,116 @@
+﻿@model UserEdit
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container">
+    <div class="page-content">
+        <!--.page-title start-->
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","User")">Users</a>
+                    <span>Edit User</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <!--.page-title end-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","User")" accept-charset="utf-8">
+                            @Html.ValidationSummary( )
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input asp-for="UserId" hidden />
+
+
+                                    <div class="row mb-4">
+                                        <label for="product_name" class="col-md-3">Product Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="UserName" class="form-control" id="product_name">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="product_name" class="col-md-3">Product Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="FirstName" class="form-control" id="product_name">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <label for="product_name" class="col-md-3">Product Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="LastName" class="form-control" id="product_name">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <label for="product_name" class="col-md-3">Product Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Email" class="form-control" id="product_name">
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row mb-4">
+                                        <label asp-for="SelectedRoles" for="productType" class="col-md-3">Selected Roles</label>
+                                        <div class="col-md-9 " style="flex-direction:column">
+
+                                            @foreach (var roleName in ViewBag.Roles)
+                                            {
+                                                <div class="mb-1">
+
+                                                    <input type="checkbox"
+                                                           name="SelectedRoles"
+                                                           value="@roleName"
+                                                           id="@roleName"
+                                                           @(Model.SelectedRoles.Any(sr => sr == roleName) ? "checked" : "")>
+                                                    <label for="@roleName" class="col-md-4">@roleName</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-4 ">
+                                        <label asp-for="EmailConfirmed" class="col-md-3" for="checkbox1">Email Confirmed</label>
+                                        <div class="col-md-9 " style="flex-direction:column">
+                                            <input asp-for="EmailConfirmed" id="checkbox1" >
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div class="row mb-4 mt-2">
+                                <div class="col-md-12">
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- ./card -->
+
+            </div>
+        </div>
+        <!--page title end-->
+
+    </div>
+</div>
+<script>
+
+</script>
+

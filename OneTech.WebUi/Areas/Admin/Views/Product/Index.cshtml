@@ -1,0 +1,91 @@
+﻿@model List<Product>
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Product")">Products</a>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a href="@Url.Action("Create","Product")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Sub Category</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Main Category</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Product product in Model)
+                                {
+
+                                    <tr>
+                                        <td>@product.Id</td>
+                                        <td>
+                                            <div class="media">
+                                                <img src="~/img/Products/@product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                            </div>
+                                        </td>
+                                        <td>@product.Name</td>
+
+                                        @if (product.ProductSubCategories.Count( ) != 0)
+                                        {
+                                            <td>@product.ProductSubCategories[0].SubCategory.Name</td>
+                                            <td>@product.ProductSubCategories[0].SubCategory.Category.Name</td>
+                                            <td>@product.ProductSubCategories[0].SubCategory.Category.MainCategory.Name</td>
+                                        }
+                                        else if (product.ProductCategories.Count( ) != 0)
+                                        {
+                                            <td>None</td>
+                                            <td>@product.ProductCategories[0].Category.Name</td>
+                                            <td>@product.ProductCategories[0].Category.MainCategory.Name</td>
+                                        }
+                                        else if (product.ProductMainCategories.Count( ) != 0)
+                                        {
+                                            <td>None</td>
+                                            <td>None</td>
+                                            <td>@product.ProductMainCategories[0].MainCategory.Name</td>
+                                        }
+
+                                        <td>
+                                            <div class="btn-group dropleft">
+                                                <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </i>
+                                                <div class="dropdown-menu">
+                                                    <a href="@Url.Action("CreateDiscount","Product", new { discountType = "percent" ,productId = product.Id})" class="dropdown-item">Add Discount With Money</a>
+                                                    <a href="@Url.Action("CreateDiscount","Product", new { discountType = "money" ,productId = product.Id})" class="dropdown-item">Add Discount With Percent</a>
+                                                    <a href="@Url.Action("RemoveDiscount","Product", new { productId = product.Id})" class="dropdown-item">Remove Discount</a>
+
+                                                    <a class="dropdown-item" href="@Url.Action("Detail","Product",new { productId = product.Id})">Details</a>
+                                                    <a class="dropdown-item" href="@Url.Action("Edit","Product",new { productId = product.Id})">Edit</a>
+
+                                                    <a onclick="return confirm('Are you sure to delete?')"
+                                                       class="dropdown-item"
+                                                       href="@Url.Action("Delete","Product", new { productId = product.Id})">Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

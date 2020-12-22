@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+@model SubCategoryEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Category")">Categories</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","SubCategory")">
+                            <input asp-for="SubCategoryId" hidden/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row mb-4">
+                                        <label for="product_name" class="col-md-3">SubCategory Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control" id="product_name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="product_description" class="col-md-3">SubCategory Description</label>
+                                        <div class="col-md-9">
+                                            <textarea asp-for="Description" class="form-control" id="product_description"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="MainCategory" class="col-md-3">Main Category</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="mainCategoryForSubCategory">
+                                                @foreach (MainCategory mainCategory in Model.MainCategories)
+                                                {
+                                                    if (mainCategory.Id == Model.MainCategoryId)
+                                                    {
+                                                        <option selected value="@mainCategory.Id">@mainCategory.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@mainCategory.Id">@mainCategory.Name</option>
+                                                   }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="MainCategory" class="col-md-3">Category</label>
+                                        <div class="col-md-9">
+                                            <select  asp-for="CategoryId" class="form-control" id="categoryForSubCategory">
+                                                @* Category options come here *@
+                                            </select>
+                                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4 mt-2">
+                                        <button type="submit" name="submit" id="btnSubmit"
+                                                class="btn btn-block btn-primary">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

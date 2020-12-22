@@ -1,0 +1,80 @@
+﻿@model BrandModelModel
+<div class="container">
+    <div class="page-content">
+        <!--.page-title start-->
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","BrandModel")">Brand Models</a>
+                    <span>Add</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <!--.page-title end-->
+        <div class="row">
+
+
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+
+                        <form id="addProduct" method="post" action="@Url.Action("Create","BrandModel")" >
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row mb-4">
+                                        <label asp-for="Name" class="col-md-3">Brand Model Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control" id="product_name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <label asp-for="Description" class="col-md-3">Brand Model Description</label>
+                                        <div class="col-md-9">
+                                            <textarea asp-for="Description" class="form-control" id="product_name"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="MainCategory" class="col-md-3">Brand</label>
+                                        <div class="col-md-9">
+                                            <select asp-for="BrandId" class="form-control" id="brandId">
+                                                @foreach (Brand brand in ViewBag.Brands)
+                                                {
+                                                    <option value="@brand.Id">@brand.BrandName</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="BrandId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Create
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- ./card -->
+
+            </div>
+        </div>
+        <!--page title end-->
+
+    </div>
+</div>
+<script>
+
+</script>
+

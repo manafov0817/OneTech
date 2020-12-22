@@ -1,0 +1,75 @@
+﻿@model OptionValueEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","OptionValue")">Option Values</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","OptionValue")">
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <input hidden asp-for="Id"/>
+
+                                    <div class="row mb-4">
+                                        <label asp-for="Name" class="col-md-3">Brand Model Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control" id="product_name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="MainCategory" class="col-md-3">Brand</label>
+                                        <div class="col-md-9">
+                                            <select asp-for="OptionId" class="form-control" id="brandId">
+                                                @foreach (Option option in ViewBag.Options)
+                                                {
+                                                    if (option.Id==Model.OptionId) {
+                                                <option selected value="@option.Id">@option.Name</option>}
+                                                    else
+                                                    {
+                                                        <option value="@option.Id">@option.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <span asp-validation-for="OptionId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- ./card -->
+
+            </div>
+        </div>
+        <!--page title end-->
+
+    </div>
+</div>
+<script>
+
+</script>
+

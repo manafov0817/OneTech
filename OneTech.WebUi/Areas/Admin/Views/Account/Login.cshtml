@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from www.madmin.madcoderz.com/madmin-vertical-dark/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Sep 2020 09:08:01 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="~/Admin/images/adminicon.png">
+
+    <title>OneTech | Login</title>
+
+    <!-- Madmin CSS -->
+    <link rel="stylesheet" href="~/Admin/assets/css/main.css">
+
+</head>
+
+<body class="vertical dark-mode wrapper-login" style="background-image: url(assets/images/bg.svg);">
+
+    <!-- .container start -->
+    <div class="container">
+
+        <!-- #app start -->
+        <div id="app">
+
+            <div class="login-form">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="main-logo text-center my-3">
+                            <img src="~/Admin/assets/images/logo-color.svg" alt="madol">
+                        </div>
+                        <h6 class="text-center mb-3">Sign in to your account</h6>
+                        <form action="@Url.Action("Login","Account")" method="post">
+
+
+                            <div class="form-group">
+                                <input name="Email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
+                            </div>
+                            @*<span asp-validation-for=""></span>*@
+
+                            <div class="form-group">
+                                <input name="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-group my-3 row">
+                                <div class="col-12 text-right">
+                                    <input type="submit" class="btn btn-primary btn-block" data-id="dashboard" value="Log In">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ./login-form -->
+
+        </div>
+        <!-- #app end -->
+
+    </div>
+    <!-- .container end -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/Admin/assets/js/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Admin/assets/js/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!--Plugin-->
+
+</body>
+
+
+<!-- Mirrored from www.madmin.madcoderz.com/madmin-vertical-dark/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Sep 2020 09:08:02 GMT -->
+</html>
+

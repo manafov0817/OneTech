@@ -1,0 +1,205 @@
+﻿@model ProductEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Product")">Product</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","Product")" enctype="multipart/form-data" accept-charset="utf-8">
+                            <input hidden asp-for="Id" />
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    @*Name*@
+                                    <div class="row mb-4">
+                                        <label asp-for="Name" class="col-md-3">Product Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control" id="product_name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Purchase Price*@
+                                    <div class="row mb-4">
+                                        <label asp-for="PurchasePrice" class="col-md-3">Purchase Price</label>
+                                        <div class="col-md-9">
+                                            <input type="number" asp-for="PurchasePrice" class="form-control" id="product_name">
+                                            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Selling Price*@
+                                    <div class="row mb-4">
+                                        <label asp-for="SellingPrice" class="col-md-3">Selling Price</label>
+                                        <div class="col-md-9">
+                                            <input type="number" asp-for="SellingPrice" class="form-control" id="product_name">
+                                            <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Quantity*@
+                                    <div class="row mb-4">
+                                        <label asp-for="Quantity" class="col-md-3">Quantity</label>
+                                        <div class="col-md-9">
+                                            <input type="number" asp-for="Quantity" class="form-control" id="quantity">
+                                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Brand*@
+                                    <div class="row mb-4">
+                                        <label class="col-md-3">Brand</label>
+                                        <div class="col-md-9 color-height">
+                                            <select class="form-control" id="brandForProduct">
+                                                @foreach (Brand brand in ViewBag.Brands)
+                                                {
+                                                    if (ViewBag.BrandId == brand.Id)
+                                                    {
+                                                        <option selected value="@brand.Id">@brand.BrandName</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@brand.Id">@brand.BrandName</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    @*Model*@
+                                    <div class="row mb-4">
+                                        <label asp-for="BrandModelId" class="col-md-3">Model</label>
+                                        <div class="col-md-9 color-height">
+                                            <select disabled asp-for="BrandModelId" class="form-control" id="brandModelForProduct">
+                                                @* Model options come here *@
+                                            </select>
+                                            <span asp-validation-for="BrandModelId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Main Category*@
+                                    <div class="row mb-4">
+                                        <label asp-for="MainCategoryIds" class="col-md-3">Main Category</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="MainCategoryIds" class="ui fluid normal dropdown" id="mainCategoryForProduct">
+                                                @foreach (MainCategory mainCategory in ViewBag.MainCategories)
+                                                {
+                                                    <option value="@mainCategory.Id">@mainCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    @*Category*@
+                                    <div class="row mb-4">
+                                        <label asp-for="CategoryIds" class="col-md-3">Category</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="CategoryIds" class="ui fluid normal dropdown" id="categoryForProduct">
+                                                @* Category options come here *@
+                                            </select>
+                                            <span asp-validation-for="CategoryIds" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Sub Category*@
+                                    <div class="row mb-4">
+                                        <label asp-for="SubCategoryIds" class="col-md-3">Sub Category</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="SubCategoryIds" class="ui fluid normal dropdown" id="subCategoryForProduct">
+                                                @* Sub Category options come here *@
+                                            </select>
+                                            <span asp-validation-for="SubCategoryIds" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Options*@
+                                    <div class="row mb-4">
+                                        <label class="col-md-3">Options</label>
+                                        <div class="col-md-9 color-height">
+                                            <select multiple="" class="ui fluid normal dropdown" id="optionForProduct">
+                                                @foreach (Option option in ViewBag.Options)
+                                                {
+                                                    if (option.Name.ToLower( ) != "color".ToLower( ))
+                                                    {
+                                                        <option value="@option.Id">@option.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    @*Option Values*@
+                                    <div class="row mb-4">
+                                        <label asp-for="OptionValueIds" class="col-md-3">Option Values</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="OptionValueIds" class="ui fluid normal dropdown" id="optionValueForProduct">
+                                                @* Option options come here *@
+                                            </select>
+                                            <span asp-validation-for="OptionValueIds" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Colors*@
+                                    <div class="row mb-4">
+                                        <label asp-for="ColorId" class="col-md-3">Color</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="ColorId" class="form-control" id="colorsForProduct">
+                                                @foreach (OptionValue color in ViewBag.Colors)
+                                                {
+                                                    <option value="@color.Id">@color.Name</option>
+
+                                                }
+                                            </select>
+                                            <span asp-validation-for="ColorId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    @*Photos*@
+                                    <div class="row mb-4">
+                                        <label asp-for="Photos" class="col-md-3">Photos</label>
+                                        <div class="col-md-9 preview-img">
+                                            <div class="image-preview clearfix"></div>
+                                            <div class="clearfix"></div>
+                                            <label for="preview_image" class="custom-file-upload" style="margin-top: 0px">
+                                                Upload Photos
+                                            </label>
+                                            <input multiple asp-for="Photos" type="file" id="preview_image"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    @*Product Description*@
+                                    <div class="row mb-4">
+                                        <label asp-for="Description" class="col-md-3">Product Description</label>
+                                        <div class="col-md-9">
+                                            <textarea asp-for="Description" class="form-control" id="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<script>CKEDITOR.replace('description')</script>

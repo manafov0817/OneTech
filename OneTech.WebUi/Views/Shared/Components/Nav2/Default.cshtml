@@ -1,0 +1,92 @@
+﻿@model Nav2Model
+<div class="nav-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-sm-3 col-2 order-1">
+                <div class="nav2_logo">
+                    <div class="nav2_logo_container">
+                        <div class="logo">
+                            <a href="@Url.Action("Index","Home")">OneTech</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right findbar">
+                <div class="nav2_find ">
+                    <form class="nav2_find_container row" action="@Url.Action("Index","Shop")">
+                        <div class="find_write">
+                            <input class="search_bar " type="text" placeholder="Search for Products...">
+                            <span class="in_between_line"></span>
+                        </div>
+                        <div class="find_choose">
+                            <select class="find-bar" name="categoryId" id="main_categories">
+                                @if (Model.MainCategories.Count( ) > 0)
+                                {
+                                    foreach (MainCategory mainCategory in Model.MainCategories)
+                                    {
+                                        <option value="@("m"+mainCategory.Id)">
+                                            @mainCategory.Name
+                                        </option>
+                                    }
+                                }
+                                @if (Model.Categories.Count( ) > 0)
+                                {
+                                    foreach (Category category in Model.Categories)
+                                    {
+                                        <option value="@("c"+category.Id)">
+                                            @category.Name
+                                        </option>
+                                    }
+                                }
+                                @if (Model.SubCategories.Count( ) > 0)
+                                {
+                                    foreach (SubCategory subCategory in Model.SubCategories)
+                                    {
+                                        <option value="@("s"+subCategory.SubCategoryId)">
+                                            @subCategory.Name
+                                        </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <button class="find_button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-10 col-sm-9 order-lg-3 order-2 text-lg-left text-right">
+                <div class="nav2_buy ">
+                    <div class="nav2_buy_container ">
+                        <div class="nav2_buy_wishlist row ml-auto">
+                            <div class="heart ml-auto">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <a class="a_for_hover" href="#">Wishlist</a>
+                                <p>99</p>
+                            </div>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class=" nav2_buy_cart row col-5">
+                                <div class="cart ml-auto ">
+                                    <i class="fas fa-shopping-cart ">
+                                        <span class="shop_count">999</span>
+                                    </i>
+                                </div>
+                                <div>
+                                    <a class="a_for_hover" href="cart.html">Cart</a>
+                                    <p>$1500</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model OptionEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Option")">Options</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body pdn-20 pdn-sm-40 pdn-t-20-imp">
+                    <div class="pdn-sm-55 pdn-15 bdr">
+                        <form class="needs-validation" novalidate="novalidate"
+                              method="post" action="@Url.Action("Edit","Option")">
+                            <input asp-for="Id" hidden>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label asp-for="Name">Option Name</label>
+                                    <input asp-for="Name" class="form-control" id="name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mgn-t-25" type="submit">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ./card -->
+        </div>
+    </div>
+</div>

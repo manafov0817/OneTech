@@ -1,0 +1,94 @@
+﻿@model RegisterModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="~/css/media.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <title>Register</title>
+</head>
+
+<body style="background-color: #f2f2f2;">
+
+    <div class="register_section">
+        <div class="container">
+            <div class="register_container mt-5 mb-5">
+                <div>
+                    <div class="logo">
+                        <a href="index.html">OneTech</a>
+                    </div>
+                    <div class="register_form">
+                        <form class="form_tag" action="@Url.Action("Register","Account")" method="post">
+
+                            <label asp-for="Name">Name<span>*</span></label>
+                            <br>
+                            <input asp-for="Name" class="filled d-block" placeholder="Allan" >
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <br>
+
+
+                            <label asp-for="Surname">Surname<span>*</span></label>
+                            <br>
+                            <input asp-for="Surname" class="filled" id="surname" placeholder="Gray" required="required">
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                            <br>
+
+
+                            <label asp-for="Username">Username<span>*</span></label>
+                            <br>
+                            <input  asp-for="Username" class="filled" id="username"  placeholder="allan.gray0"
+                                   required="required">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <br>
+
+
+                            <label asp-for="Email">Email<span>*</span></label>
+                            <br>
+                            <input asp-for="Email" class="filled"  placeholder="allan00@mail.edu"
+                                   required="required">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <br>
+
+
+                            <label asp-for="Password">Password<span>*</span></label>
+                            <br>
+                            <input asp-for="Password" class="filled" required="required">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <br>
+
+
+                            <label asp-for="RePassword">Password Confirm<span>*</span></label>
+                            <br>
+                            <input asp-for="RePassword" class="filled " required="required">
+                            <span asp-validation-for="RePassword" class="text-danger d-block"></span>
+                            <br>
+
+
+                            <button type="submit" class="register">Register</button>
+                        </form>
+                        <a href="login.html" class="have_account"> Already Have An Account?</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

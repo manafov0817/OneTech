@@ -1,0 +1,67 @@
+﻿@model List<MainCategory>
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#">OneTech</a>
+                    <span>Main Categories</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2" href="@Url.Action("Create","MainCategory")">Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card company">
+                    <div class="card-body table-responsive">
+                        @if (Model.Count( ) > 0)
+                        {
+                            @Html.ValidationSummary( )
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Main Category Name</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (MainCategory mainCategory in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @mainCategory.Id
+                                            </td>
+                                            <td>
+                                                @mainCategory.Name
+                                            </td>
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Edit","MainCategory",new { mainCategoryId = mainCategory.Id})">Edit</a>
+                                                        <a onclick="return confirm('Are you sure to delete?')" class="dropdown-item" href="@Url.Action("Delete","MainCategory", new { mainCategoryId = mainCategory.Id})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <h1>There is not any Main Category</h1>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

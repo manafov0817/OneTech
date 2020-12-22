@@ -1,0 +1,38 @@
+﻿@model RoleModel
+<div class="container">
+    <div class="page-content">
+        <!--.page-title start-->
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Category")">Category</a>
+                    <span>Add</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body pdn-20 pdn-sm-40 pdn-t-20-imp">
+                    <div class="pdn-sm-55 pdn-15 bdr">
+                        <form class="needs-validation" novalidate="novalidate"
+                              method="post" action="@Url.Action("Create","Role")">
+                            @Html.ValidationSummary( )
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label asp-for="Name">Role</label>
+                                    <input asp-for="Name"  class="form-control" id="Name">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mgn-t-25" type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ./card -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@model OneTech.WebUi.Areas.Admin.Models.BrandModel
+<div class="container">
+    <div class="page-content">
+        <!--.page-title start-->
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#">Brand</a>
+                    <span>Add Brand</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <!--.page-title end-->
+        <div class="row">
+
+
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+
+                        <form id="addProduct" method="post" action="@Url.Action("Create","Brand")" enctype="multipart/form-data" accept-charset="utf-8">
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row mb-4">
+                                        <label asp-for="Name" class="col-md-3">Brand Name</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control" id="product_name">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <label asp-for="Description" class="col-md-3">Brand Description</label>
+                                        <div class="col-md-9">
+                                            <textarea asp-for="Description" class="form-control" id="product_name"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-9 offset-md-3 preview-img">
+                                            <div class="image-preview clearfix"></div>
+                                            <label for="preview_image" class="custom-file-upload">
+                                                Upload Logo
+                                            </label>
+                                            <input asp-for="Photo" type="file" id="preview_image"
+                                                   required="required">
+                                        </div>
+                                    </div>
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Create
+                                    </button>
+                                </div>
+                            </div>
+                           
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- ./card -->
+
+            </div>
+        </div>
+        <!--page title end-->
+
+    </div>
+</div>
+<script>
+
+</script>

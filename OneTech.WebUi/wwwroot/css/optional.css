@@ -1,0 +1,39 @@
+.button-container div:nth-child(2) {
+    display: flex;
+    align-items: center;
+}
+
+
+.product-color-container,
+.quantity {
+    margin-top: 25px;
+}
+
+
+.add-to-cart-button button {
+ 
+}
+
+.product-info-content .add-wishlist {
+    margin-left: 30px;
+}
+
+.quantity {
+    display: inline-block;
+}
+
+.product-form label {
+    color: #8a8686;
+}
+
+
+.color-down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.color-down i {
+    font-size: 0.8em;
+    color: #8a8686;
+}

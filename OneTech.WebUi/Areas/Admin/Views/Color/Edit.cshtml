@@ -1,0 +1,56 @@
+﻿@model ColorEditModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Color")">Colors</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","Color")">
+                            <input hidden asp-for="Id" />
+                            <div class="col-md-12 row">
+                                <div class="col-md-6 row mb-4">
+                                    <label asp-for="Name" class="col-md-3">Color Name</label>
+                                    <div class="col-md-9">
+                                        <input asp-for="Name" class="form-control" id="color_name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 row mb-4">
+                                    <label asp-for="HexCode" class="col-md-3">Hex Code</label>
+                                    <div class="col-md-9 " style="display:flex">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">#</div>
+                                        </div>
+                                        <input asp-for="HexCode" class="form-control" id="hex_code">
+                                        <span asp-validation-for="HexCode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <button type="submit" name="submit" id="btnSubmit"
+                                        class="btn btn-block btn-primary">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+
+
+
