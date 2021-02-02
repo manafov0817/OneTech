@@ -1,59 +1,54 @@
-﻿@model Product
+﻿@model ProductModel
 <section class="product-section">
     <div class="container">
         <div class="row">
-
             <div class="col-lg-2 order-lg-1 order-2 product-photos" id="mainProductPhotos">
-                @foreach (ProductPhoto productPhoto in Model.ProductPhotos)
+                @foreach (ProductPhoto productPhoto in Model.Product.ProductPhotos)
                 {
                     <div class="product-photo">
                         <img src="~/img/Products/@productPhoto.Photo.Path" alt="">
                     </div>
                 }
             </div>
-   
+
             <div class="col-lg-5 order-lg-2 order-1">
                 <div id="selected-image">
-                    <img src="~/img/Products/@Model.ProductPhotos[0].Photo.Path" alt="">
+                    <img src="~/img/Products/@Model.Product.ProductPhotos[0].Photo.Path" alt="">
                 </div>
             </div>
-
 
             <div class="col-lg-5 order-3">
                 <div class="product-info-content">
                     <div class="product-info">
-                        @if (Model.ProductMainCategories.Count( ) > 0)
+                        @if (Model.Product.ProductMainCategories.Count( ) > 0)
                         {
-                            foreach (ProductMainCategory productMainCategory in Model.ProductMainCategories)
+                            foreach (ProductMainCategory productMainCategory in Model.Product.ProductMainCategories)
                             {
                                 <div class="product-category">
                                     <a href="@Url.Action("Index","Shop",new { categoryId= ("m"+productMainCategory.MainCategoryId)})"> @productMainCategory.MainCategory.Name </a>
                                 </div>
                             }
                         }
-                        @if (Model.ProductCategories.Count( ) > 0)
+                        @if (Model.Product.ProductCategories.Count( ) > 0)
                         {
 
-                            foreach (ProductCategory productCategory in Model.ProductCategories)
+                            foreach (ProductCategory productCategory in Model.Product.ProductCategories)
                             {
                                 <div class="product-category">
                                     <a href="@Url.Action("Index","Shop",new { categoryId= ("c"+productCategory.CategoryId)})">@productCategory.Category.Name</a>
                                 </div>
                             }
                         }
-                        @if (Model.ProductSubCategories.Count( ) > 0)
+                        @if (Model.Product.ProductSubCategories.Count( ) > 0)
                         {
-                            foreach (ProductSubCategory productSubCategory in Model.ProductSubCategories)
+                            foreach (ProductSubCategory productSubCategory in Model.Product.ProductSubCategories)
                             {
                                 <div class="product-category">
                                     <a href="@Url.Action("Index","Shop",new { categoryId= ("s"+productSubCategory.SubCategoryId)})">@productSubCategory.SubCategory.Name</a>
                                 </div>
                             }
                         }
-
-                        <div class="product-name" id="mainProductName"> @Model.Name</div>
-
-       
+                        <div class="product-name" id="mainProductName"> @Model.Product.Name</div>
                         <div class="product-rate">
                             <i class="far fa-star"></i>
                             <i class="far fa-star"></i>
@@ -61,22 +56,20 @@
                             <i class="far fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
-
                         <div class="product-description">
-                            @Html.Raw(Model.Description)
+                            @Html.Raw(Model.Product.Description)
                         </div>
-
                     </div>
-                    <form action="" class="product-form">
+                    <form action="@Url.Action("AddToCart","Cart")" class="product-form">
                         <div class="product-options">
                             <div class="quantity">
                                 <label for="quantity">Quantity: </label>
-                                <input type="number" id="quantity" name="quantity" min="0" max="@Model.Quantity" value="1">
+                                <input hidden id="productIdValue" name="producId" value="@Model.Product.Id"/>
+                                <input type="number" id="quantity" name="productCount" min="0" max="@Model.Product.Quantity" value="1">
                             </div>
-
                             <div class="product-color-container row">
                                 <span> Color:</span>
-                                @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                @foreach (ProductOptionValue productOptionValue in Model.Product.ProductOptionValues)
                                 {
                                     if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
                                     {
@@ -87,8 +80,7 @@
                                     }
                                 }
                                 <ul>
-
-                                    @foreach (ProductOptionValue productOptionValue in Model.ProductOptionValues)
+                                    @foreach (ProductOptionValue productOptionValue in Model.Product.ProductOptionValues)
                                     {
                                         if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
                                         {
@@ -98,22 +90,37 @@
                                             </li>
                                         }
                                     }
-
+                                    @if (Model.Products != null)
+                                    {
+                                        foreach (Product product in Model.Products)
+                                        {
+                                            foreach (ProductOptionValue productOptionValue in product.ProductOptionValues)
+                                            {
+                                                if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
+                                                {
+                                                    string[] color = productOptionValue.OptionValue.Name.Split("#");
+                                                    <li class="color-choice" id="mainProductColor">
+                                                        <a href="@Url.Action("Index","Product",new { productId=product.Id})">
+                                                            <div style="background-color: #@color[1];"></div>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    }
                                 </ul>
                                 <div class="color-down"><i class="fas fa-chevron-down"></i></div>
                             </div>
                         </div>
-
-                        <div class="product-price" id="mainProductPrices">
-                            $ @Model.SellingPrice
+                        <div class="product-price" id="mainProductPrice">
+                            $ @Model.Product.SellingPrice
                         </div>
-                                
-
+                        <input hidden id="sellingPrice" value="@Model.Product.SellingPrice">
                         <div class="button-container">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <div class="add-to-cart-button ">
-                                    <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                    <button type="submit" id="addProductToCart" class="btn btn-primary">Add To Cart</button>
                                 </div>
                             }
                             <div class="add-wishlist">
@@ -121,24 +128,18 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
-
             <div class="product-prop order-4">
-
                 <table class="table table-striped table-hover">
-
                     <thead>
                         <tr>
                             <th scope="col">Property Name</th>
                             <th scope="col">Value</th>
                         </tr>
                     </thead>
-
                     <tbody>
-
-                        @foreach (ProductOptionValue productOptionValue1 in Model.ProductOptionValues)
+                        @foreach (ProductOptionValue productOptionValue1 in Model.Product.ProductOptionValues)
                         {
                             if (productOptionValue1.OptionValue.Option.Name.ToLower( ) != "color")
                             {
@@ -148,7 +149,6 @@
                                 </tr>
                             }
                         }
-
                     </tbody>
                 </table>
             </div>

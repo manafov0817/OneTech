@@ -75308,3 +75308,21 @@ body.dark-mode {
     width: 100px;
     object-fit: contain;
 }
+
+.ui.search.selection.dropdown {
+    background: none !important;
+    word-wrap: break-word;
+}
+
+.ui.search.dropdown > .text {
+    color: #fff !important;
+}
+.ui.search.dropdown {
+    width: inherit;
+}
+.ui.search.dropdown > input.search {
+    background: #192734 !important;
+}
+.ui.search.dropdown.selection{
+    border:1px solid #fff
+}

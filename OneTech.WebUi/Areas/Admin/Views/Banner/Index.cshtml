@@ -1,0 +1,151 @@
+﻿@model Banner
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Banner")">Banner</a>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                        <a href="@Url.Action("Delete", "Banner")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Delete</a>
+                        <a href="@Url.Action("Edit", "Banner")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Edit</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                        <a href="@Url.Action("Create", "Banner")" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add Banner Component</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bdr-t-0">
+                    @if (Model != null)
+                    {
+                        <div class="card-body">
+                            <div class="row mb-5">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="elevate-wrapper">
+                                                <a id="choosenImage" class="elevate-img-link">
+                                                    <img src="~/img/Products/@Model.Product.ProductPhotos[0].Photo.Path" alt="" />
+                                                </a>
+                                            </div>
+                                            <div class="elevate-gallery">
+                                                <div class="gallery">
+                                                    <div id="mainProductPhotos">
+                                                        @foreach (ProductPhoto productPhoto in Model.Product.ProductPhotos)
+                                                        {
+                                                            <a href="#" class="galleryPhotos" data-image="~/img/Products/@productPhoto.Photo.Path" data-zoom-image="~/img/Products/@productPhoto.Photo.Path">
+                                                                <img src="~/img/Products/@productPhoto.Photo.Path" alt="" />
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2 product-details-info">
+                                    <h2 class="" id="mainProductName">
+                                        @Model.Product.Name
+                                    </h2>
+                                    <div id="mainProductPrices">
+                                        <span class="txt-24 text-secondary d-block">Purchase Price: $@Model.Product.PurchasePrice</span>
+                                        <span class="txt-24 text-secondary d-block">Selling Price: $@Model.Product.SellingPrice</span>
+                                    </div>
+                                    <hr class="header-divider">
+                                    <span class="availability d-block text-primary">@Model.Product.Quantity In Stock</span>
+                                    <span class="soldqty d-block text-danger">@Model.Product.Sold Sold</span>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td class="value" id="mainProductColor">
+                                                    <div class="product-switches">
+                                                        @foreach (ProductOptionValue productOptionValue in Model.Product.ProductOptionValues)
+                                                        {
+                                                            if (productOptionValue.OptionValue.Option.Name.ToLower( ) == "color")
+                                                            {
+                                                                string[] color = productOptionValue.OptionValue.Name.Split("#");
+                                                                <span class="switch-label switch-color" title="color[0]" style="background-color:#@color[1]"></span>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="mgn-t-15 mgn-b-25">
+                                        <div class="txt-14 text-secondary">
+                                            @if (Model.Product.ProductMainCategories.Count( ) > 0)
+                                            {
+                                                <div class="txt-20">
+                                                    Main Categories
+                                                </div>
+                                                foreach (ProductMainCategory productMainCategory in Model.Product.ProductMainCategories)
+                                                {
+                                                    <span class="txt-16 text-secondary d-block">@productMainCategory.MainCategory.Name</span>
+                                                }
+                                            }
+                                            @if (Model.Product.ProductCategories.Count( ) > 0)
+                                            {
+                                                <div class="txt-20  d-block">
+                                                    Categories
+                                                </div>
+                                                foreach (ProductCategory productCategory in Model.Product.ProductCategories)
+                                                {
+                                                    <span class="txt-16  d-block">@productCategory.Category.Name</span>
+                                                }
+                                            }
+                                            @if (Model.Product.ProductSubCategories.Count( ) > 0)
+                                            {
+                                                <div class="txt-20  d-block">
+                                                    SubCategories:
+                                                </div>
+                                                foreach (ProductSubCategory productsubCategory in Model.Product.ProductSubCategories)
+                                                {
+                                                    <span class="txt-16 d-block">@productsubCategory.SubCategory.Name</span>
+                                                }
+                                            }
+                                            <br>
+                                            <div class="txt-20  d-block">
+                                                Options:
+                                            </div>
+                                            @foreach (ProductOptionValue productOptionValue in Model.Product.ProductOptionValues)
+                                            {
+                                                if (productOptionValue.OptionValue.Option.Name.ToLower( ) != "color")
+                                                {
+                                                    <span class="txt-16 d-block">@productOptionValue.OptionValue.Option.Name: @productOptionValue.OptionValue.Name</span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="txt-24 d-block">Slogan: @Model.Slogan</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6>Description</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            @Html.Raw(Model.Product.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

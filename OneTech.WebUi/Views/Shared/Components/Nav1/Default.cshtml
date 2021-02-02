@@ -1,0 +1,79 @@
+﻿@model List<Contact>
+<div class="nav-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="nav1_contact_phone ">
+                    <i class="fas fa-mobile-alt"></i> @Model[0].Number
+                </div>
+                <div class="nav1_contact_email">
+                    <i class="far fa-envelope"></i>
+                    <a style="margin-left:7px" href="#">@Model[0].Email</a>
+                </div>
+                <div class="nav1_right_content ml-auto d-flex">
+                    @*<div class="nav1_option  row">
+                        <div class="nav1_language">
+                            <a href="#">English</a>
+                            <ul class="language_options my_dropdown">
+                                <li>
+                                    <a href="#">Italian</a>
+                                </li>
+                                <li>
+                                    <a href="#">Spanish</a>
+                                </li>
+                                <li>
+                                    <a href="#">Russian</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav1_money">
+                            <a href="#">$ US Dollar</a>
+                            <ul class="my_dropdown">
+                                <li>
+                                    <a href="#">EUR Euro</a>
+                                </li>
+                                <li>
+                                    <a href="#">GBP British Pound</a>
+                                </li>
+                                <li>
+                                    <a href="#">JPY Jpananese Yen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
+
+                    <div class="nav1_user d-flex ml-auto">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="nav1_login">
+                                <a style="margin-left:7px" href="@Url.Action("Index","Account")">
+                                    @User.Identity.Name
+                                </a>
+                                <span></span>
+                            </div>
+                            <div class="nav1_register ">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <a href="@Url.Action("Logout","Account")">Logout</a>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="nav1_login">
+                                <i class="far fa-user"></i>
+                                <a style="margin-left:7px" href="@Url.Action("Login","Account")">
+                                    Login
+                                </a>
+                                <span></span>
+                            </div>
+                            <div class="nav1_register ">
+                                <a href="@Url.Action("Register","Account")">Register</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

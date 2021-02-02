@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace OneTech.WebUi.Controllers
 {
-    //[AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private UserManager<User> _userManager;
@@ -31,13 +30,19 @@ namespace OneTech.WebUi.Controllers
             _cartService = cartService;
         }
 
+        public async Task<IActionResult> Index() 
+        {
+            string currentUserId = (await _userManager.GetUserAsync(HttpContext.User)).Id;    
+            return View(await _userManager.FindByIdAsync(currentUserId));
+        }
+
         [HttpGet]
         public IActionResult Login ()
         {
             return View( );
         }
+
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login ( LoginModel model )
         {
             if (!ModelState.IsValid)
@@ -134,17 +139,16 @@ namespace OneTech.WebUi.Controllers
             {
                 CreateMessage("ther is not user with this credentials", "danger");
                 return View( );
-            }
+            } 
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-                //_cartService.InitializeCart(user.Id);
+                _cartService.InitializeCart(user.Id);
                 CreateMessage("sucess", "success");
                 return View( );
             }
             return View( );
         }
-
 
         [HttpGet]
         public IActionResult ForgotPassword ()
@@ -177,7 +181,6 @@ namespace OneTech.WebUi.Controllers
 
             return View( );
         }
-
 
         public IActionResult ResetPassword ( string userId, string token )
         {
@@ -215,12 +218,20 @@ namespace OneTech.WebUi.Controllers
             return View(model);
         }
 
+        //public IActionResult ResetPassword ( string userId, string token )
+        //{
+
+        //}
 
         public async Task<IActionResult> Logout ()
         {
             await _signinManager.SignOutAsync( );
             return RedirectToAction("Index", "Home");
         }
+
+
+
+
         private void CreateMessage ( string message, string alerttype )
         {
             var msg = new AlertMessage( )

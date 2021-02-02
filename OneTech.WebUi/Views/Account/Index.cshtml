@@ -1,0 +1,120 @@
+﻿@model User
+<section class="user-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+
+                <section class="user-navbar">
+                    <h2>@Model.FirstName @Model.LastName</h2>
+                    <div class="my-account">
+                        <h3 class="user-title">
+                            My Account
+                        </h3>
+                        <div class="user-options ">
+                            <a class="user-choice" href="">
+                                User Options
+                            </a>
+                        </div>
+                        <div class="log-out ">
+                            <a class="user-choice" href="">
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-orders">
+                        <h3 class="user-title">Orders</h3>
+                        <div class="order-history">
+                            <a class="user-choice" href="">
+                                Order History
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-8">
+                <div class="about-me">
+                    <h2>About Me</h2>
+                    <form action="@Url.Action("Update","Account")" method="post" class="user-form">
+                        <div class="profile-details user-form-section">
+                            <h4>Profile Details</h4>
+                            <div class="user-name">
+                                <label asp-for="FirstName">Name</label>
+                                <input asp-for="FirstName" id="user-name">
+                            </div>
+                            <div class="user-surname">
+                                <label asp-for="LastName">Surname</label>
+                                <input id="user-surname" asp-for="LastName">
+                            </div>
+                            <div class="user-email">
+                                <label asp-for="Email">Email</label>
+                                <input id="user-email" asp-for="Email">
+                            </div>
+                            <div class="user-phone-number">
+                                <label asp-for="PhoneNumber">Phone Number</label>
+                                <input id="user-phone-number" asp-for="PhoneNumber">
+                            </div>
+                        </div>
+                        <div class="user-save-changes">
+                            <button type="submit">Update Profile</button>
+                        </div>
+                    </form>
+                    <form action="@Url.Action("Update","Account")" method="post" class="user-form">
+                        <div class="account-details user-form-section">
+                            <h4>Change Password</h4>
+                            <div class="user-password">
+                                <label for="user-password">Old Password</label>
+                                <input id="old-password" type="text">
+                            </div>
+                            <div class="user-password">
+                                <label for="password">Password</label>
+                                <input id="password" type="text">
+                            </div>
+                            <div class="user-password-confirm">
+                                <label for="password-confirm">Password Confirm</label>
+                                <input id="password-confirm" type="text">
+                            </div>
+                        </div>
+                        <div class="user-save-changes">
+                            <button type="submit">Update Password</button>
+                        </div>
+                    </form>
+                    <form action="@Url.Action("Update","Account")" method="post" class="user-form">
+                        <div class="account-details user-form-section">
+                            <h4>Address Details</h4>
+                            <div class="user-city">
+                                <label asp-for="City">City</label>
+                                <input id="user-city" asp-for="City">
+                            </div>
+                            <div class="user-address">
+                                <label asp-for="Address">Address</label>
+                                <input id="user-address" asp-for="Address">
+                            </div>
+                            <div class="user-address-description">
+                                <label asp-for="AddressExplain">Address Description</label>
+                                <textarea asp-for="AddressExplain" id="user-address-description" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="user-save-changes">
+                            <button type="submit">Update Address</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="order-history d-none">
+                    <h2>About Me</h2>
+                    <form action="">
+                        <div class="user-name"></div>
+                        <div class="user-surname"></div>
+                        <div class="user-username"></div>
+                        <div class="user-phone-number"></div>
+                        <div class="user-email"></div>
+                        <div class="user-password"></div>
+                        <div class="user-password-accept"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

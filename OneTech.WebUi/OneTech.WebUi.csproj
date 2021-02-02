@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>0a6950b5-be19-4c2b-9b0b-5f702f2ba553</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,11 +22,6 @@
     <ProjectReference Include="..\OneTech.Business\OneTech.Business.csproj" />
     <ProjectReference Include="..\OneTech.Data\OneTech.Data.csproj" />
     <ProjectReference Include="..\OneTech.Entity\OneTech.Entity.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>

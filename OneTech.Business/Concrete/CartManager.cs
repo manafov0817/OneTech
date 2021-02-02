@@ -17,22 +17,28 @@ namespace OneTech.Business.Concrete
 
         public void Create ( Cart entity )
         {
-            throw new NotImplementedException( );
+            _cartRepository.Create(entity);
         }
 
         public void Delete ( Cart entity )
         {
-            throw new NotImplementedException( );
+            _cartRepository.Delete(entity);
         }
 
         public List<Cart> GetAll ()
         {
-            throw new NotImplementedException( );
+            return _cartRepository.GetAll( );
         }
 
         public Cart GetById ( int id )
         {
-            throw new NotImplementedException( );
+            return _cartRepository.GetById(id);
+        }
+
+        public Cart GetByUserId ( string id )
+        {
+            return _cartRepository.GetByUserId(id);
+
         }
 
         public void InitializeCart ( string userId )
@@ -42,7 +48,7 @@ namespace OneTech.Business.Concrete
 
         public void Update ( Cart entity )
         {
-            throw new NotImplementedException( );
+            _cartRepository.Update(entity);
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model Banner
+@if (Model != null)
+{
+    <section class="section1">
+        <div class="banner_background" style="background-image:url(img/banner_background.jpg)"></div>
+        <div class=" banner_container container">
+            <div class="row">
+                <div class="col-lg-5 fill_height">
+                    <div class="banner_content">
+                        <h1 class="banner_slogan font-montserrat">
+                            @Model.Slogan
+                        </h1>
+                        <div class="banner_product_price">
+                            <span> &#8380 @Model.Product.SellingPrice</span> @*&#8380 460*@
+                        </div>
+                        <div class="banner_product_name">
+                            @Model.Product.Name
+                        </div>
+                        <div class="banner_product_shop">
+                            <a class="btn btn-primary" href="@Url.Action("Index","Product",new {productId=Model.ProductId })">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner_image">
+                    <img src="~/img/Products/@Model.Product.ProductPhotos[0].Photo.Path" alt="Photo">
+                </div>
+            </div>
+        </div>
+    </section>
+}

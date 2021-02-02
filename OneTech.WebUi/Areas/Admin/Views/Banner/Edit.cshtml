@@ -1,0 +1,51 @@
+﻿@model BannerModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Banner")">Banner</a>
+                    <span>Edit</span>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+                        <form id="addProduct" method="post" action="@Url.Action("Edit","Banner")">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row mb-4">
+                                        <label asp-for="ProductId" class="col-md-3">Related to Product</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="ProductId" class="ui search dropdown">
+                                                @foreach (Product product in ViewBag.AllProducts)
+                                                {
+                                                    <option value="@product.Id">@product.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>                                   
+                                    <div class="row mb-4">
+                                        <label asp-for="Slogan" class="col-md-3">Slogan</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Slogan" class="form-control" id="product_name">
+                                            <span asp-validation-for="Slogan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,7 @@ namespace OneTech.WebUi.Areas.Admin.Models
         public int Quantity { get; set; }
         [Required]
         public int BrandModelId { get; set; }
+        public int RelateProductId { get; set; }
         public List<IFormFile> Photos { get; set; }
         public List<int> SubCategoryIds { get; set; }
         public List<int> CategoryIds { get; set; }

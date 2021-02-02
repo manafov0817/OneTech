@@ -5,5 +5,7 @@ using System.Text;
 
 namespace OneTech.Data.Abstract
 {
-    public interface ICartRepository :IRepository<Cart> { }
+    public interface ICartRepository :IRepository<Cart> {
+       Cart GetByUserId ( string id );
+    }
 }

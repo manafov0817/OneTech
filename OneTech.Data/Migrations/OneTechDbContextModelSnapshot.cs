@@ -19,6 +19,115 @@ namespace OneTech.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slogan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Banner");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.BestRatedProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BestRatedProducts");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.DealOfWeekProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DealOfWeekProducts");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.FeaturedProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FeaturedProducts");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.OnSaleProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OnSaleProducts");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.PopularCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PopularCategories");
+                });
+
             modelBuilder.Entity("OneTech.Entity.Models.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -126,19 +235,31 @@ namespace OneTech.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("OneTech.Entity.Models.ColorPhoto", b =>
+            modelBuilder.Entity("OneTech.Entity.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Path")
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ColorPhotos");
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.MainCategory", b =>
@@ -192,6 +313,76 @@ namespace OneTech.Data.Migrations
                     b.HasIndex("OptionId");
 
                     b.ToTable("OptionValues");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderState")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.Photo", b =>
@@ -277,55 +468,6 @@ namespace OneTech.Data.Migrations
                     b.ToTable("ProductCategories");
                 });
 
-            modelBuilder.Entity("OneTech.Entity.Models.ProductColor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("ColorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SellingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ColorId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductColors");
-                });
-
-            modelBuilder.Entity("OneTech.Entity.Models.ProductColorPhoto", b =>
-                {
-                    b.Property<int>("ColorPhotoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductColorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColorPhotoId", "ProductColorId");
-
-                    b.HasIndex("ProductColorId");
-
-                    b.ToTable("ProductColorPhotos");
-                });
-
             modelBuilder.Entity("OneTech.Entity.Models.ProductMainCategory", b =>
                 {
                     b.Property<int>("ProductId")
@@ -371,6 +513,24 @@ namespace OneTech.Data.Migrations
                     b.ToTable("ProductPhotos");
                 });
 
+            modelBuilder.Entity("OneTech.Entity.Models.ProductRelate", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RelateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "RelateId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.HasIndex("RelateId");
+
+                    b.ToTable("ProductRelates");
+                });
+
             modelBuilder.Entity("OneTech.Entity.Models.ProductReview", b =>
                 {
                     b.Property<int>("ProductId")
@@ -399,6 +559,18 @@ namespace OneTech.Data.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("ProductSubCategories");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.Models.Relate", b =>
+                {
+                    b.Property<int>("RelateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.HasKey("RelateId");
+
+                    b.ToTable("Relate");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.Review", b =>
@@ -446,6 +618,61 @@ namespace OneTech.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.Banner", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.BestRatedProduct", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.DealOfWeekProduct", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.FeaturedProduct", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OneTech.Entity.ComponentModels.OnSaleProduct", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.BrandModel", b =>
@@ -500,6 +727,25 @@ namespace OneTech.Data.Migrations
                     b.Navigation("Option");
                 });
 
+            modelBuilder.Entity("OneTech.Entity.Models.OrderItem", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Order", "Order")
+                        .WithMany("OderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("OneTech.Entity.Models.Product", b =>
                 {
                     b.HasOne("OneTech.Entity.Models.BrandModel", "BrandModel")
@@ -528,44 +774,6 @@ namespace OneTech.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("OneTech.Entity.Models.ProductColor", b =>
-                {
-                    b.HasOne("OneTech.Entity.Models.OptionValue", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OneTech.Entity.Models.Product", "Product")
-                        .WithMany("ProductColors")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Color");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("OneTech.Entity.Models.ProductColorPhoto", b =>
-                {
-                    b.HasOne("OneTech.Entity.Models.ColorPhoto", "ColorPhoto")
-                        .WithMany("ProductColorPhotos")
-                        .HasForeignKey("ColorPhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OneTech.Entity.Models.ProductColor", "ProductColor")
-                        .WithMany("ProductColorPhotos")
-                        .HasForeignKey("ProductColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ColorPhoto");
-
-                    b.Navigation("ProductColor");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.ProductMainCategory", b =>
@@ -625,6 +833,25 @@ namespace OneTech.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("OneTech.Entity.Models.ProductRelate", b =>
+                {
+                    b.HasOne("OneTech.Entity.Models.Product", "Product")
+                        .WithOne("ProductRelate")
+                        .HasForeignKey("OneTech.Entity.Models.ProductRelate", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OneTech.Entity.Models.Relate", "Relate")
+                        .WithMany()
+                        .HasForeignKey("RelateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Relate");
+                });
+
             modelBuilder.Entity("OneTech.Entity.Models.ProductReview", b =>
                 {
                     b.HasOne("OneTech.Entity.Models.Product", "Product")
@@ -653,7 +880,7 @@ namespace OneTech.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("OneTech.Entity.Models.SubCategory", "SubCategory")
-                        .WithMany("ProductCategories")
+                        .WithMany("ProductSubCategories")
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -686,11 +913,6 @@ namespace OneTech.Data.Migrations
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("OneTech.Entity.Models.ColorPhoto", b =>
-                {
-                    b.Navigation("ProductColorPhotos");
-                });
-
             modelBuilder.Entity("OneTech.Entity.Models.MainCategory", b =>
                 {
                     b.Navigation("Categories");
@@ -703,6 +925,11 @@ namespace OneTech.Data.Migrations
                     b.Navigation("ProductOptionValues");
                 });
 
+            modelBuilder.Entity("OneTech.Entity.Models.Order", b =>
+                {
+                    b.Navigation("OderItems");
+                });
+
             modelBuilder.Entity("OneTech.Entity.Models.Photo", b =>
                 {
                     b.Navigation("ProductPhotos");
@@ -712,22 +939,17 @@ namespace OneTech.Data.Migrations
                 {
                     b.Navigation("ProductCategories");
 
-                    b.Navigation("ProductColors");
-
                     b.Navigation("ProductMainCategories");
 
                     b.Navigation("ProductOptionValues");
 
                     b.Navigation("ProductPhotos");
 
+                    b.Navigation("ProductRelate");
+
                     b.Navigation("ProductReviews");
 
                     b.Navigation("ProductSubCategories");
-                });
-
-            modelBuilder.Entity("OneTech.Entity.Models.ProductColor", b =>
-                {
-                    b.Navigation("ProductColorPhotos");
                 });
 
             modelBuilder.Entity("OneTech.Entity.Models.Review", b =>
@@ -737,7 +959,7 @@ namespace OneTech.Data.Migrations
 
             modelBuilder.Entity("OneTech.Entity.Models.SubCategory", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("ProductSubCategories");
                 });
 #pragma warning restore 612, 618
         }

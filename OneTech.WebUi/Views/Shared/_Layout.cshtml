@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-
     <link rel="stylesheet" href="~/css/media.css">
     <link rel="stylesheet" href="~/css/style.css">
 
@@ -16,6 +15,8 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-slider.min.css">
+
     <title>One-Tech M</title>
 </head>
 
@@ -23,285 +24,12 @@
 
     <!--Navigation Start -->
 
-    <div class="nav-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 d-flex">
-                    <div class="nav1_contact_phone ">
-                        <i class="fas fa-mobile-alt"></i> +994-50-353-15-20
-                    </div>
-                    <div class="nav1_contact_email">
-                        <i class="far fa-envelope"></i>
-                        <a style="margin-left:7px" href="#">manafov0817@gmail.com</a>
-                    </div>
-                    <div class="nav1_right_content ml-auto d-flex">
-                        <div class="nav1_option  row">
-                            <div class="nav1_language">
-                                <a href="#">English</a>
-                                <ul class="language_options my_dropdown">
-                                    <li>
-                                        <a href="#">Italian</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Spanish</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Russian</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="nav1_money">
-                                <a href="#">$ US Dollar</a>
-                                <ul class="my_dropdown">
-                                    <li>
-                                        <a href="#">EUR Euro</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">GBP British Pound</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">JPY Jpananese Yen</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="nav1_user d-flex">
 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <div class="nav1_login">
-                                    <a style="margin-left:7px" href="@Url.Action("Manage","Account")">
-                                        @User.Identity.Name
-                                    </a>
-                                    <span></span>
-                                </div>
-                                <div class="nav1_register ">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <a href="@Url.Action("Logout","Account")">Logout</a>
-                                </div>
-
-                            }
-                            else
-                            {
-                                <div class="nav1_login">
-                                    <i class="far fa-user"></i>
-                                    <a style="margin-left:7px" href="@Url.Action("Login","Account")">
-                                        Login
-                                    </a>
-                                    <span></span>
-                                </div>
-                                <div class="nav1_register ">
-                                    <a href="@Url.Action("Register","Account")">Register</a>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <vc:nav1></vc:nav1>
 
     <vc:nav2></vc:nav2>
 
-
-    <div class="nav-3 ">
-        <div class="container">
-            <div class="row">
-                <div class="nav3_main_categories col-7 col-sm-4 col-md-3">
-                    <div class="col-11 col-sm-10  ml-auto row">
-                        <div class="cat_menu">
-                            <span></span>
-                            <span style="margin-top: 7px;">
-                            </span>
-                            <span style="margin-top: 13px;"></span>
-                        </div>
-                        <div>
-                            CATEGORIES
-                        </div>
-                    </div>
-                    <ul class="category_dropdown">
-                        <li>
-                            <a href="#">
-                                Computer & offereds
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Camera & Photos
-                            </a>
-                        </li>
-                        <li class="has_sub">
-                            <a href="#">
-                                Hardware
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                            <ul>
-                                <li class="has_sub">
-                                    <a href="#">
-                                        Category1
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">SubCategory1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">SubCategory2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">SubCategory3</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has_sub">
-                                    <a href="#">
-                                        Category2
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">SubCategory1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">SubCategory2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">SubCategory3</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li> <a href="#">Category3</a></li>
-                                <li> <a href="#">Category4 </a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Smartphone & Tablets
-                            </a>
-                        </li>
-                        <li class="has_sub">
-                            <a href="#">
-                                TV & Audio
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        Category1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Category2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Category3
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Category4
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Gadgets
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Car ELectronics
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Video Games & Consoles
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Accessories
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="page_navbar ml-auto">
-                    <ul class="page_navbar_container row ">
-                        <li class="ml-auto">
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="# ">
-                                Super Deals<i style="font-size:0.7em; " class="fas fa-chevron-down"></i>
-                            </a>
-                            <ul class="has_dropdown ">
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="# ">
-                                Featured Brands<i style="font-size:0.7em; " class="fas fa-chevron-down "></i>
-                            </a>
-                            <ul class="has_dropdown ">
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-                                <li>
-                                    <a href="# ">Menu Item</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-                        <li style="margin-right: 0!important; ">
-                            <a href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="md_menu  ml-auto">
-                    <div id="accordion_md_menu_header" class="menu_container col-12 row">
-
-                        <div> MENU</div>
-                        <div id="accordion_symbol" class="cat_menu">
-                            <span></span>
-                            <span style="margin-top: 7px;">
-                            </span>
-                            <span style="margin-top: 13px;"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
+    <vc:nav3></vc:nav3>
 
     <div class="accordion_md_menu sticky-top">
         <div class="container">
@@ -538,6 +266,7 @@
             </div>
         </div>
     </footer>
+
     <div class="copyright">
         <div class="container">
             <div class="row">
@@ -582,6 +311,7 @@
     <script src="~/js/product.js "></script>
     <script src="~/js/parallax.min.js"></script>
     <script src="~/js/custom.js"></script>
+    <script src="~/js/bootstrap-slider.min.js"></script>
 </body>
 
 </html>

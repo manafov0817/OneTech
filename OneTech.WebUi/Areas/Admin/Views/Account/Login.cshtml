@@ -33,17 +33,14 @@
             <div class="login-form">
                 <div class="card">
                     <div class="card-body">
-                        <div class="main-logo text-center my-3">
-                            <img src="~/Admin/assets/images/logo-color.svg" alt="madol">
-                        </div>
-                        <h6 class="text-center mb-3">Sign in to your account</h6>
+                                        <h6 class="text-center mb-3">Sign in to your account</h6>
                         <form action="@Url.Action("Login","Account")" method="post">
-
+                            @Html.ValidationSummary()
 
                             <div class="form-group">
                                 <input name="Email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
                             </div>
-                            @*<span asp-validation-for=""></span>*@
+                           
 
                             <div class="form-group">
                                 <input name="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">

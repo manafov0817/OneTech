@@ -9,8 +9,10 @@ namespace OneTech.Business.Abstract
     {
         Cart GetById ( int id );
         List<Cart> GetAll ();
+        Cart GetByUserId ( string id );
         void Create ( Cart entity );
         void Update ( Cart entity );
         void Delete ( Cart entity );
+        void InitializeCart ( string id );
     }
 }

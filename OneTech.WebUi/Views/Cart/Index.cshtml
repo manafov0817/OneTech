@@ -1,0 +1,90 @@
+﻿@model List<CartItem>
+<section class="cart">
+    <div class="container">
+        <div class="col-lg-12 ">
+            <form action="">
+                <h1 class="cart-title">
+                    Shopping Cart
+                </h1>
+                <div class="row">
+                    <div class="cart-items col-md-8">
+                        @if (Model != null)
+                        {
+                            foreach (CartItem item in Model)
+                            {
+                                <div class="cart-item clearfix">
+                                    <div class="row">
+                                        <i class="far fa-times-circle remove-item removeCartItem"></i>
+                                        <div class="cart-item-image">
+                                            <img src="~/img/Products/@item.Product.ProductPhotos[0].Photo.Path" alt="Nope!">
+                                        </div>
+                                        <ul class="cart-item-info row">
+                                            <li class="item-name">
+                                                <div class="item-title">Name</div>
+                                                <div class="item-description" style="max-width: 200px;">@item.Product.Name</div>
+                                            </li>
+                                            <li class="item-quantity">
+                                                <div class="item-title">
+                                                    Quantity
+                                                </div>
+                                                <div class="item-description">
+                                                    <div class="item-title">
+                                                        <input type="number" min="0" class="cartQuantity" max="@item.Product.Quantity" value="@item.Quantity">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="item-price">
+                                                <div class="item-title">Price</div>
+                                                <input class="itemPrice" value="@item.Product.SellingPrice" hidden />
+                                                <div class="item-description">$@item.Product.SellingPrice</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="item-total">
+                                        <div class="item-title">Total for this product</div>
+                                        <div class="item-description totalPrice" style="text-align: end;display: inherit;">$ @(item.Product.SellingPrice*item.Quantity)</div>
+                                    </div>
+                                    <input value="@item.ProductId" class="productInCartId" hidden />
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="cart-total-bill col-md-4">
+                        <div class="cart-total-bill-container">
+                            <div class="row">
+                                <div class="products-in-cart-title">
+                                    Total
+                                </div>
+                                @{
+                                    decimal? total = 0;
+                                    foreach (CartItem item in Model)
+                                    {
+                                        total += (item.Quantity * item.Product.SellingPrice);
+                                    }
+                                }
+                                <div class="products-total-price">$ @total</div>
+                            </div>
+                            <button type="submit" class="buy-all">Buy All</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var removeItems = document.querySelectorAll(".remove-item");
+    removeItems.forEach(removeItem => {
+        removeItem.addEventListener("mouseenter", function () {
+            removeItem.classList.remove("far");
+            removeItem.classList.add("fas");
+        })
+        removeItem.addEventListener("mouseleave", function () {
+            removeItem.classList.remove("fas");
+            removeItem.classList.add("far");
+        })
+    })
+</script>
+

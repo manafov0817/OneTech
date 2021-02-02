@@ -18,6 +18,7 @@ namespace OneTech.Entity.Models
         public int Quantity { get; set; }
         public int Sold { get; set; }
         public bool Status { get; set; }
+        public ProductRelate ProductRelate { get; set; }
         public DateTime AddedDate { get; set; }
         public int BrandModelId { get; set; }
         public BrandModel BrandModel { get; set; }

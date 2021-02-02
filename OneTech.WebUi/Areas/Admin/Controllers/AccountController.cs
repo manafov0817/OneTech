@@ -53,9 +53,8 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("", "User is not exists");
+                            ModelState.AddModelError("", "Password is Incorrect");
                             return View(model);
-
                         }
                     }
                     else

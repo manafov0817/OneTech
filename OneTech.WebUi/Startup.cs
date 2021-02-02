@@ -41,9 +41,19 @@ namespace OneTech.WebUi
             services.AddScoped<IBrandModelRepository, EfCoreBrandModelRepository>( );
             services.AddScoped<IOptionRepository, EfCoreOptionRepository>( );
             services.AddScoped<IOptionValueRepository, EfCoreOptionValueRepository>( );
+            services.AddScoped<IRelateRepository, EfCoreRelateRepository>( );
             services.AddScoped<IPhotoRepository, EfCorePhotoRepository>( );
             services.AddScoped<IProductRepository, EfCoreProductRepository>( );
+            services.AddScoped<IProductRelateRepository, EfCoreProductRelateRepository>( );
             services.AddScoped<ICartRepository, EfCoreCartRepository>( );
+            services.AddScoped<ICartItemRepository, EfCoreCartItemRepository>( );
+            services.AddScoped<IContactRepository, EfCoreContactRepository>( );
+            services.AddScoped<IBannerRepository, EfCoreBannerRepository>( );
+            services.AddScoped<IOnSaleProductRepository, EfCoreOnSaleProductRepository>( );
+            services.AddScoped<IFeaturedProductRepository, EfCoreFeaturedProductRepository>( );
+            services.AddScoped<IDealOfWeekProductRepository, EfCoreDealOfWeekProductRepository>( );
+            services.AddScoped<IBestRatedProductRepository, EfCoreBestRatedProductRepository>( );
+            services.AddScoped<IPopularCategoryRepository, EfCorePopularCategoryRepository>( );
 
             services.AddScoped<IProductMainCategoryRepository, EfCoreProductMainCategoryRepository>( );
             services.AddScoped<IProductCategoryRepository, EfCoreProductCategoryRepository>( );
@@ -59,9 +69,19 @@ namespace OneTech.WebUi
             services.AddScoped<IBrandModelService, BrandModelManager>( );
             services.AddScoped<IOptionService, OptionManager>( );
             services.AddScoped<IOptionValueService, OptionValueManager>( );
+            services.AddScoped<IRelateService, RelateManager>( );
             services.AddScoped<IPhotoService, PhotoManager>( );
             services.AddScoped<IProductService, ProductManager>( );
+            services.AddScoped<IProductRelateService, ProductRelateManager>( );
             services.AddScoped<ICartService, CartManager>( );
+            services.AddScoped<ICartItemService, CartItemManager>( );
+            services.AddScoped<IContactService, ContactManager >( );
+            services.AddScoped<IBannerService, BannerManager>( );
+            services.AddScoped<IOnSaleProductService, OnSaleProductManager>( );
+            services.AddScoped<IFeaturedProductService, FeaturedProductManager>( );
+            services.AddScoped<IDealOfWeekProductService, DealOfWeekProductManager>( );
+            services.AddScoped<IBestRatedProductService, BestRatedProductManager>( );
+            services.AddScoped<IPopularCategoryService, PopularCategoryManager>( );
 
             services.AddScoped<IProductOptionValueService, ProductOptionValueManager>( );
             services.AddScoped<IProductPhotoService, ProductPhotoManager>( );
@@ -71,6 +91,7 @@ namespace OneTech.WebUi
 
 
             services.AddScoped<OneTechDbContext>( );
+
 
             services.AddDbContext<ApplicationContext>(opions =>
             {
@@ -135,9 +156,10 @@ namespace OneTech.WebUi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure ( IApplicationBuilder app, IWebHostEnvironment env )
         {
+            SeedDatabase.Seed( );
             if (env.IsDevelopment( ))
             {
-                //SeedDatabase.Seed( );
+                
                 app.UseDeveloperExceptionPage( );
             }
             else

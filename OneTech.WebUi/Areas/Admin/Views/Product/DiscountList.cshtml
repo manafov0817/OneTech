@@ -24,6 +24,8 @@
                                     <th scope="col">Discount</th>
                                     <th scope="col">Without Discount</th>
                                     <th scope="col">With Discount</th>
+                                    <th scope="col">Discount Starts</th>
+                                    <th scope="col">Discount Ends</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -61,7 +63,8 @@
                                                     @(product.SellingPrice - ((int)product.SellingPrice * product.DiscountWithPercent /  100))
                                                 }
                                             </td>
-
+                                            <td>@product.DiscountStart</td>
+                                            <td>@product.DiscountEnd</td>
                                             <td>
                                                 <div class="btn-group dropleft">
                                                     <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

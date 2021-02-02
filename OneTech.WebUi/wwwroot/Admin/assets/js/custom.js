@@ -7,6 +7,9 @@
         .dropdown({
             useLabels: false,
         });
+    $('.ui.dropdown')
+        .dropdown()
+
 
     FillCategory($("#mainCategoryForSubCategory"));
 

@@ -1,0 +1,611 @@
+﻿@model FeaturedModel
+@if (Model.DealOfWeekProducts.Count( ) > 0 && (Model.BestRatedProducts.Count( ) > 0 || Model.FeaturedProducts.Count( ) > 0 || Model.OnSaleProducts.Count( ) > 0))
+{
+    <section class="section3">
+        <div class="container">
+            <div class="row">
+                <div class="deals_of_week">
+                    <div class="dow_title">Deals of the Week</div>
+                    <div class="dow_controls">
+                        <div class="dow_left">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="dow_right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="owl-container">
+                        <div class="owl-carousel owl-theme">
+                            @foreach (Product dealOfWeekProduct in Model.DealOfWeekProducts)
+                            {
+                                <div class="item">
+                                    <div class="dow_container">
+                                        <div class="dow_photo d">
+                                            <img src="~/img/Products/@dealOfWeekProduct.ProductPhotos[0].Photo.Path" alt="">
+                                        </div>
+                                        <div class="dow_content">
+                                            <div class="dow_info_line">
+                                                <div class="dow_category_name">
+                                                    <div class="dow_category">
+                                                        @{
+                                                            string categoryName = "";
+                                                            string categoryId = "";
+
+                                                            if (dealOfWeekProduct.ProductMainCategories.Count( ) > 0)
+                                                            {
+                                                                categoryName = dealOfWeekProduct.ProductMainCategories[0].MainCategory.Name;
+                                                                categoryId = "m" + Convert.ToString(dealOfWeekProduct.ProductMainCategories[0].MainCategoryId);
+                                                            }
+                                                            if (dealOfWeekProduct.ProductCategories.Count( ) > 0)
+                                                            {
+                                                                categoryName = dealOfWeekProduct.ProductCategories[0].Category.Name;
+                                                                categoryId = "c" + Convert.ToString(dealOfWeekProduct.ProductCategories[0].CategoryId);
+                                                            }
+                                                            if (dealOfWeekProduct.ProductSubCategories.Count( ) > 0)
+                                                            {
+                                                                categoryName = dealOfWeekProduct.ProductSubCategories[0].SubCategory.Name;
+                                                                categoryId = "s" + Convert.ToString(dealOfWeekProduct.ProductSubCategories[0].SubCategoryId);
+                                                            }
+
+                                                        }
+                                                        <a href="@Url.Action("Index","Shop",new { categoryId= categoryId})">@categoryName</a>
+                                                    </div>
+                                                    <div class="dow_name">
+                                                        <a href="@Url.Action("Index","Product",new { productId = dealOfWeekProduct.Id })">@dealOfWeekProduct.Name</a>
+                                                    </div>
+                                                </div>
+                                                <div class="dow_discount_price">
+                                                    <div class="dow_price">$@dealOfWeekProduct.SellingPrice.GetValueOrDefault( ).ToString("0.##")</div>
+                                                    @{
+                                                        decimal discountedPrice = (dealOfWeekProduct.SellingPrice.GetValueOrDefault( ));
+                                                        if (dealOfWeekProduct.DiscountWithPercent > 0)
+                                                        {
+                                                            discountedPrice = discountedPrice - (discountedPrice * dealOfWeekProduct.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                        }
+                                                        if (dealOfWeekProduct.DiscountWithMoney > 0)
+                                                        {
+                                                            discountedPrice = discountedPrice - dealOfWeekProduct.DiscountWithMoney.GetValueOrDefault( );
+                                                        }
+                                                    }
+                                                    <div class="dow_discounted_price">$@discountedPrice.ToString("0.##")</div>
+                                                </div>
+                                            </div>
+                                            <div class="dow_aviable">
+                                                <div class="dow_aviable_info">
+                                                    <div class="dow_aviable_count">Aviable: <span>@dealOfWeekProduct.Quantity</span></div>
+                                                    <div class="dow_sold">Already Sold: <span>@dealOfWeekProduct.Sold</span></div>
+                                                </div>
+                                                @{
+                                                    decimal percent = dealOfWeekProduct.Quantity * 100 / (dealOfWeekProduct.Quantity + dealOfWeekProduct.Sold);
+                                                }
+                                                <div class="dow_aviable_line">
+                                                    <div style="width: @percent%;" class="dow_aviable_line_inner"></div>
+                                                </div>
+                                            </div>
+                                            <div class="dow_timer_container">
+                                                <div class="dow_timer_text">
+                                                    Hurry Up
+                                                    <span>Offer Ends In:</span>
+                                                </div>
+                                                @{
+                                                    string[] endDate = dealOfWeekProduct.DiscountEnd.Split(" ")[0].Split("/");
+                                                }
+                                                <input type="datetime" value="@endDate[0]/@endDate[1]/@endDate[2]" hidden>
+                                                <div class="dow_timer">
+                                                    <div class="dow_timer_unit"></div>
+                                                    <div class="dow_timer_unit"></div>
+                                                    <div class="dow_timer_unit"></div>
+                                                    <div class="dow_timer_unit"></div>
+                                                </div>
+                                                <div class="dow_timer_nav">
+                                                    <div>Days</div>
+                                                    <div>Hours</div>
+                                                    <div>Mins.</div>
+                                                    <div>Secs.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="fob">
+                    <div class="fob_nav">
+                        <ul>
+                            @if (Model.FeaturedProducts.Count( ) > 0)
+                            {
+                                <li class="featured_title active">Featured</li>
+                            }
+                            @if (Model.OnSaleProducts.Count( ) > 0)
+                            {
+                                <li class="on_sale_title">On Sale</li>
+                            }
+                            @if (Model.BestRatedProducts.Count( ) > 0)
+                            {
+                                <li class="best_rated_title">Best Rated</li>
+                            }
+                        </ul>
+                        <div class="fob_nav_line">
+                            <div class="fob_nav_line_inner"></div>
+                        </div>
+                    </div>
+                    <div class="fob_containers">
+                        @if (Model.FeaturedProducts.Count( ) > 0)
+                        {
+                            <div class="fob_container active">
+                                <div class="owl-container">
+                                    <div class="owl-carousel owl-theme">
+                                        @for (int i = 0; i < Model.FeaturedProducts.Count( ); i += 2)
+                                        {
+                                            Product product1 = Model.FeaturedProducts[i];
+                                            <div class="item">
+                                                <div class="two_fob_product_container">
+                                                    <div class="fob_product">
+                                                        <div class="fob_photo">
+                                                            <a href="@Url.Action("Index","Product",new { productId = product1.Id })">
+                                                                <img src="~/img/Products/@product1.ProductPhotos[0].Photo.Path" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="fob_marks">
+                                                            @{
+                                                                decimal discountedPrice = (Model.FeaturedProducts[i].SellingPrice.GetValueOrDefault( ));
+                                                            }
+                                                            @if (Model.FeaturedProducts[i].DiscountWithPercent > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - (discountedPrice * Model.FeaturedProducts[i].DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                <span class="fob_discount">
+                                                                    -@(Model.FeaturedProducts[i].DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                </span>
+                                                            }
+                                                            @if (Model.FeaturedProducts[i].DiscountWithMoney > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - Model.FeaturedProducts[i].DiscountWithMoney.GetValueOrDefault( );
+                                                                <span class="fob_discount">
+                                                                    -@(Model.FeaturedProducts[i].DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                </span>
+                                                            }
+                                                            @if (DateTime.Now.Subtract(Model.FeaturedProducts[i].AddedDate).TotalDays < 7)
+                                                            {
+                                                                <span class="fob_new">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="fob_content">
+                                                            @if (discountedPrice != product1.SellingPrice.GetValueOrDefault( ))
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@discountedPrice.ToString("0.####") <span>$@product1.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@((product1.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                </div>
+                                                            }
+                                                            <div class="fob_product_name">
+                                                                @{
+                                                                    if (Model.FeaturedProducts[i].Name.Length > 15)
+                                                                    {
+                                                                        string name = Model.FeaturedProducts[i].Name.Substring(0, 15) + "...";
+                                                                        <a href="@Url.Action("Index","Product",new { productId = Model.FeaturedProducts[i].Id })">@name</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@Url.Action("Index","Product",new { productId = Model.FeaturedProducts[i].Id })">@Model.FeaturedProducts[i].Name ...</a>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            @if (User.Identity.IsAuthenticated)
+                                                            {
+                                                                <div class="fob_product_hidden">
+                                                                    <div class="fob_product_add_to_card">
+                                                                        <a href="#" id="@product1.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+
+                                                    @if (i + 1 < Model.FeaturedProducts.Count( ))
+                                                    {
+                                                        Product product2 = Model.FeaturedProducts[i + 1];
+                                                        <div class="fob_product">
+                                                            <div class="fob_photo">
+                                                                <a href="@Url.Action("Index","Product",new { productId = product2.Id })">
+                                                                    <img src="~/img/Products/@product2.ProductPhotos[0].Photo.Path" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="fob_marks">
+                                                                @{
+                                                                    decimal discountedPrice2 = (product2.SellingPrice.GetValueOrDefault( ));
+                                                                }
+                                                                @if (product2.DiscountWithPercent > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - (discountedPrice2 * product2.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                    </span>
+                                                                }
+                                                                @if (product2.DiscountWithMoney > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - product2.DiscountWithMoney.GetValueOrDefault( );
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                    </span>
+                                                                }
+                                                                @if (DateTime.Now.Subtract(product2.AddedDate).TotalDays < 7)
+                                                                {
+                                                                    <span class="fob_new">New</span>
+                                                                }
+                                                            </div>
+                                                            <div class="fob_content">
+                                                                @if (discountedPrice2 != product2.SellingPrice.GetValueOrDefault( ))
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@discountedPrice2.ToString("0.####") <span>$@product2.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@((product2.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                    </div>
+                                                                }
+                                                                <div class="fob_product_name">
+                                                                    @{
+                                                                        if (product2.Name.Length > 15)
+                                                                        {
+                                                                            string name = product2.Name.Substring(0, 15) + "...";
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@name</a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@product2.Name ...</a>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <div class="fob_product_hidden">
+                                                                        <div class="fob_product_add_to_card">
+                                                                            <a href="#" id="@product2.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.OnSaleProducts.Count( ) > 0)
+                        {
+                            <div class="fob_container">
+                                <div class="owl-container">
+                                    <div class="owl-carousel owl-theme">
+                                        @for (int i = 0; i < Model.OnSaleProducts.Count( ); i += 2)
+                                        {
+                                            Product product1 = Model.OnSaleProducts[i];
+                                            <div class="item">
+                                                <div class="two_fob_product_container">
+                                                    <div class="fob_product">
+                                                        <div class="fob_photo">
+                                                            <a href="@Url.Action("Index","Product",new { productId = product1.Id })">
+                                                                <img src="~/img/Products/@product1.ProductPhotos[0].Photo.Path" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="fob_marks">
+                                                            @{
+                                                                decimal discountedPrice = (product1.SellingPrice.GetValueOrDefault( ));
+                                                            }
+                                                            @if (product1.DiscountWithPercent > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - (discountedPrice * product1.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                <span class="fob_discount">
+                                                                    -@(product1.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                </span>
+                                                            }
+                                                            @if (product1.DiscountWithMoney > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - product1.DiscountWithMoney.GetValueOrDefault( );
+                                                                <span class="fob_discount">
+                                                                    -@(product1.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                </span>
+                                                            }
+                                                            @if (DateTime.Now.Subtract(product1.AddedDate).TotalDays < 7)
+                                                            {
+                                                                <span class="fob_new">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="fob_content">
+                                                            @if (discountedPrice != product1.SellingPrice.GetValueOrDefault( ))
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@discountedPrice.ToString("0.####") <span>$@product1.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@((product1.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                </div>
+                                                            }
+                                                            <div class="fob_product_name">
+                                                                @{
+                                                                    if (product1.Name.Length > 15)
+                                                                    {
+                                                                        string name = Model.FeaturedProducts[i].Name.Substring(0, 15) + "...";
+                                                                        <a href="@Url.Action("Index","Product",new { productId = product1.Id })">@name</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@Url.Action("Index","Product",new { productId = product1.Id })">@product1.Name ...</a>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            @if (User.Identity.IsAuthenticated)
+                                                            {
+                                                                <div class="fob_product_hidden">
+                                                                    <div class="fob_product_add_to_card">
+                                                                        <a href="#" id="@product1.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+
+                                                    @if (i + 1 < Model.FeaturedProducts.Count( ))
+                                                    {
+                                                        Product product2 = Model.OnSaleProducts[i + 1];
+                                                        <div class="fob_product">
+                                                            <div class="fob_photo">
+                                                                <a href="@Url.Action("Index","Product",new { productId = product2.Id })">
+                                                                    <img src="~/img/Products/@product2.ProductPhotos[0].Photo.Path" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="fob_marks">
+                                                                @{
+                                                                    decimal discountedPrice2 = (product2.SellingPrice.GetValueOrDefault( ));
+                                                                }
+                                                                @if (product2.DiscountWithPercent > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - (discountedPrice2 * product2.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                    </span>
+                                                                }
+                                                                @if (product2.DiscountWithMoney > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - product2.DiscountWithMoney.GetValueOrDefault( );
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                    </span>
+                                                                }
+                                                                @if (DateTime.Now.Subtract(product2.AddedDate).TotalDays < 7)
+                                                                {
+                                                                    <span class="fob_new">New</span>
+                                                                }
+                                                            </div>
+                                                            <div class="fob_content">
+                                                                @if (discountedPrice2 != product2.SellingPrice.GetValueOrDefault( ))
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@discountedPrice2.ToString("0.####") <span>$@product2.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@((product2.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                    </div>
+                                                                }
+                                                                <div class="fob_product_name">
+                                                                    @{
+                                                                        if (product2.Name.Length > 15)
+                                                                        {
+                                                                            string name = product2.Name.Substring(0, 15) + "...";
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@name</a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@product2.Name ...</a>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <div class="fob_product_hidden">
+                                                                        <div class="fob_product_add_to_card">
+                                                                            <a href="#" id="@product2.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.BestRatedProducts.Count( ) > 0)
+                        {
+                            <div class="fob_container">
+                                <div class="owl-container">
+                                    <div class="owl-carousel owl-theme">
+                                        @for (int i = 0; i < Model.BestRatedProducts.Count( ); i += 2)
+                                        {
+                                            Product product1 = Model.BestRatedProducts[i];
+                                            <div class="item">
+                                                <div class="two_fob_product_container">
+                                                    <div class="fob_product">
+                                                        <div class="fob_photo">
+                                                            <a href="@Url.Action("Index","Product",new { productId = product1.Id })">
+                                                                <img src="~/img/Products/@product1.ProductPhotos[0].Photo.Path" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="fob_marks">
+                                                            @{
+                                                                decimal discountedPrice = (product1.SellingPrice.GetValueOrDefault( ));
+                                                            }
+                                                            @if (product1.DiscountWithPercent > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - (discountedPrice * product1.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                <span class="fob_discount">
+                                                                    -@(product1.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                </span>
+                                                            }
+                                                            @if (product1.DiscountWithMoney > 0)
+                                                            {
+                                                                discountedPrice = discountedPrice - product1.DiscountWithMoney.GetValueOrDefault( );
+                                                                <span class="fob_discount">
+                                                                    -@(product1.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                </span>
+                                                            }
+                                                            @if (DateTime.Now.Subtract(product1.AddedDate).TotalDays < 7)
+                                                            {
+                                                                <span class="fob_new">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="fob_content">
+                                                            @if (discountedPrice != product1.SellingPrice.GetValueOrDefault( ))
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@discountedPrice.ToString("0.####") <span>$@product1.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="fob_product_price">
+                                                                    $@((product1.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                </div>
+                                                            }
+                                                            <div class="fob_product_name">
+                                                                @{
+                                                                    if (product1.Name.Length > 15)
+                                                                    {
+                                                                        string name = Model.FeaturedProducts[i].Name.Substring(0, 15) + "...";
+                                                                        <a href="@Url.Action("Index","Product",new { productId = product1.Id })">@name</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@Url.Action("Index","Product",new { productId = product1.Id })">@product1.Name ...</a>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            @if (User.Identity.IsAuthenticated)
+                                                            {
+                                                                <div class="fob_product_hidden">
+                                                                    <div class="fob_product_add_to_card">
+                                                                        <a href="#" id="@product1.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+
+                                                    @if (i + 1 < Model.BestRatedProducts.Count( ))
+                                                    {
+                                                        Product product2 = Model.BestRatedProducts[i + 1];
+                                                        <div class="fob_product">
+                                                            <div class="fob_photo">
+                                                                <a href="@Url.Action("Index","Product",new { productId = product2.Id })">
+                                                                    <img src="~/img/Products/@product2.ProductPhotos[0].Photo.Path" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="fob_marks">
+                                                                @{
+                                                                    decimal discountedPrice2 = (product2.SellingPrice.GetValueOrDefault( ));
+                                                                }
+                                                                @if (product2.DiscountWithPercent > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - (discountedPrice2 * product2.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                                                    </span>
+                                                                }
+                                                                @if (product2.DiscountWithMoney > 0)
+                                                                {
+                                                                    discountedPrice2 = discountedPrice2 - product2.DiscountWithMoney.GetValueOrDefault( );
+                                                                    <span class="fob_discount">
+                                                                        -@(product2.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                                                    </span>
+                                                                }
+                                                                @if (DateTime.Now.Subtract(product2.AddedDate).TotalDays < 7)
+                                                                {
+                                                                    <span class="fob_new">New</span>
+                                                                }
+                                                            </div>
+                                                            <div class="fob_content">
+                                                                @if (discountedPrice2 != product2.SellingPrice.GetValueOrDefault( ))
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@discountedPrice2.ToString("0.####") <span>$@product2.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="fob_product_price">
+                                                                        $@((product2.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                                                    </div>
+                                                                }
+                                                                <div class="fob_product_name">
+                                                                    @{
+                                                                        if (product2.Name.Length > 15)
+                                                                        {
+                                                                            string name = product2.Name.Substring(0, 15) + "...";
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@name</a>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="@Url.Action("Index","Product",new { productId = product2.Id })">@product2.Name ...</a>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <div class="fob_product_hidden">
+                                                                        <div class="fob_product_add_to_card">
+                                                                            <a href="#" id="@product2.Id" class="fob_add_to_card_button"> Add To Card</a>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

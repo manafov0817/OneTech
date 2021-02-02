@@ -429,6 +429,16 @@
     .hot_new_arrivals_nav_line {
         display: none !important;
     }
+
+    .product-prop th,
+    .product-prop td {
+        font-size: 10px;
+        padding: 5px 10px !important;
+    }
+
+    .product-prop .table {
+        margin-bottom: 0;
+    }
 }
 
 @media only screen and (min-width: 576px) {

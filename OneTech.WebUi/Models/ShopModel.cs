@@ -10,6 +10,7 @@ namespace OneTech.WebUi.Models
     {
         public string CategoryId { get; set; }
         public int ProductCount { get; set; }
+        public string ProductName { get; set; }
         public int PageSize { get; set; }
         public string CategoryName { get; set; }
         public List<Product> Products { get; set; }

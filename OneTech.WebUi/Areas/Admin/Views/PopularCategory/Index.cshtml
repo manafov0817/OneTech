@@ -1,0 +1,62 @@
+﻿@*@model PopularCategoryModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","PopularCategory")">Popular Category</a>
+                </div>
+                <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                    <a href="@Url.Action("Create","Featured",new { productType="dow"})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add >Popular Category (Min 1)</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (PopularCategory popularCategory in Model)
+                                {
+                                    <tr>
+                                        <td>@popularCategory.Id</td>
+                                        <td>
+                                            <div class="media">
+                                                <img src="~/img/PopularCategories/@popularCategory.PhotoPath" class="mr-3 wth-35" alt="Product Photo">
+                                            </div>
+                                        </td>
+                                        <td>@popularCategory.Name</td>
+                                        <th scope="col">Type</th>
+                                        <td>
+                                            <div class="btn-group dropleft">
+                                                <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </i>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="@Url.Action("Edit","Product",new { popularCategoryId = popularCategory.Id})">Edit</a>
+                                                    <a onclick="return confirm('Are you sure to delete?')"
+                                                       class="dropdown-item"
+                                                       href="@Url.Action("Delete","Featured", new { popularCategoryId = popularCategory.Id, FeatureType="dow"})">Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

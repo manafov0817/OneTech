@@ -25,12 +25,10 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             return View(_mainCategoryService.GetAll( ));
         }
 
-
         public IActionResult Create ()
         {
             return View( );
         }
-
 
         [HttpPost]
         public IActionResult Create ( MainCategoryModel model )
@@ -48,7 +46,6 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View( );
         }
-
 
         public IActionResult Edit ( int mainCategoryId )
         {

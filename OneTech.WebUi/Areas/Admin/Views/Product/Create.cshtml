@@ -158,7 +158,20 @@
                                         </div>
                                     </div>
 
-                                    @*Photos*@
+                                    @*Related Product*@
+                                    <div class="row mb-4">
+                                        <label asp-for="RelateProductId" class="col-md-3">Related to Product</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="RelateProductId" class="ui search dropdown">
+                                                <option value="0">None</option>
+                                                @foreach (Product product in ViewBag.AllProducts)
+                                                {
+                                                    <option value="@product.Id">@product.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="row mb-4">
                                         <label asp-for="Photos" class="col-md-3">Photos</label>
                                         <div class="col-md-9 preview-img">
@@ -194,4 +207,8 @@
     </div>
 </div>
 <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-<script>CKEDITOR.replace('description')</script>
+<script>
+    CKEDITOR.replace('description');
+
+
+</script>

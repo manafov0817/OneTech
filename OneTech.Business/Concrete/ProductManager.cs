@@ -65,6 +65,11 @@ namespace OneTech.Business.Concrete
             return _productRepository.GetProductsByMainCategoryId(id);
         }
 
+        public List<Product> GetProductsByName ( string name )
+        {
+            return _productRepository.GetProductsByName(name);
+        }
+
         public List<Product> GetProductsByOptionValueId ( int id )
         {
             return _productRepository.GetProductsByOptionValueId(id);
@@ -88,6 +93,11 @@ namespace OneTech.Business.Concrete
         public List<Product> GetTopProducts ()
         {
             return _productRepository.GetTopProducts();
+        }
+
+        public Product GetWithRelateById ( int id )
+        {
+            return _productRepository.GetWithRelateById(id);
         }
 
         public void Update ( Product entity )

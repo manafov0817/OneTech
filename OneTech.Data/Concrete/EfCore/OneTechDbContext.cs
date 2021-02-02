@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OneTech.Entity.ComponentModels;
 using OneTech.Entity.Models;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,22 @@ namespace OneTech.Data.Concrete.EfCore
         public DbSet<OptionValue> OptionValues { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ProductRelate> ProductRelates { get; set; }
         public DbSet<ProductOptionValue> ProductOptionValues { get; set; }
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<ProductReview> ProductReviews { get; set; }
         public DbSet<ProductSubCategory> ProductSubCategories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }    
         public DbSet<ProductMainCategory> ProductMainCategories { get; set; }
-
-
+        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Banner> Banner { get; set; }
+        public DbSet<BestRatedProduct> BestRatedProducts { get; set; }
+        public DbSet<DealOfWeekProduct> DealOfWeekProducts { get; set; }
+        public DbSet<FeaturedProduct> FeaturedProducts { get; set; }
+        public DbSet<OnSaleProduct> OnSaleProducts { get; set; }
+        public DbSet<PopularCategory> PopularCategories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder )
         {
             optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; Initial Catalog = OneTechDbContext; Integrated Security = SSPI");
@@ -35,6 +44,8 @@ namespace OneTech.Data.Concrete.EfCore
 
         protected override void OnModelCreating ( ModelBuilder modelBuilder )
         {
+            modelBuilder.Entity<Relate>( ).HasKey(c => new { c.RelateId });
+
 
             modelBuilder.Entity<ProductOptionValue>( ).HasKey(c => new { c.ProductId, c.OptionValueId });
 
@@ -53,6 +64,8 @@ namespace OneTech.Data.Concrete.EfCore
 
             modelBuilder.Entity<ProductMainCategory>( ).HasKey(c => new { c.ProductId, c.MainCategoryId });
 
-       }
+
+            modelBuilder.Entity<ProductRelate>( ).HasKey(c => new { c.ProductId, c.RelateId });
+                    }
     }
 }

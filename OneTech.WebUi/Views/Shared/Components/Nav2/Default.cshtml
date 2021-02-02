@@ -15,11 +15,14 @@
                 <div class="nav2_find ">
                     <form class="nav2_find_container row" action="@Url.Action("Index","Shop")">
                         <div class="find_write">
-                            <input class="search_bar " type="text" placeholder="Search for Products...">
+                            <input class="search_bar " name="productName" type="text" placeholder="Search for Products...">
                             <span class="in_between_line"></span>
                         </div>
                         <div class="find_choose">
                             <select class="find-bar" name="categoryId" id="main_categories">
+                                <option value="">
+                                    Choose Category
+                                </option>
                                 @if (Model.MainCategories.Count( ) > 0)
                                 {
                                     foreach (MainCategory mainCategory in Model.MainCategories)
@@ -49,7 +52,6 @@
                                 }
                             </select>
                         </div>
-
                         <button class="find_button">
                             <i class="fas fa-search"></i>
                         </button>
@@ -57,33 +59,25 @@
                 </div>
             </div>
 
-
             <div class="col-lg-4 col-10 col-sm-9 order-lg-3 order-2 text-lg-left text-right">
                 <div class="nav2_buy ">
                     <div class="nav2_buy_container ">
-                        <div class="nav2_buy_wishlist row ml-auto">
-                            <div class="heart ml-auto">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div>
-                                <a class="a_for_hover" href="#">Wishlist</a>
-                                <p>99</p>
-                            </div>
-                        </div>
+                    
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <div class=" nav2_buy_cart row col-5">
+                            <div class=" nav2_buy_cart row ml-auto col-5">
                                 <div class="cart ml-auto ">
                                     <i class="fas fa-shopping-cart ">
-                                        <span class="shop_count">999</span>
+                                        <span class="shop_count">@Model.ItemCount</span>
                                     </i>
                                 </div>
                                 <div>
-                                    <a class="a_for_hover" href="cart.html">Cart</a>
-                                    <p>$1500</p>
+                                    <a class="a_for_hover" href="@Url.Action("Index","Cart")">Cart</a>
+                                    <p>$@Model.ItemsTotal</p>
                                 </div>
                             </div>
-                        }
+                            <input hidden id="authenticated" value="true"/>
+                        }                       
                     </div>
                 </div>
             </div>

@@ -1,0 +1,264 @@
+﻿@model FeaturedModel
+<div class="container">
+
+    <div class="dealsOfWeekProduct">
+        <div class="page-content">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Index","Featured")">Deals of Week Products</a>
+                    </div>
+                    @if (Model.DealOfWeekProducts.Count( ) < 10)
+                    {
+                        <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                            <a href="@Url.Action("Create","Featured",new { productType="dow"})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add Deals (Max 5)</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Photo</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DealOfWeekProduct dealOfWeekProduct in Model.DealOfWeekProducts)
+                                    {
+
+                                        <tr>
+                                            <td>@dealOfWeekProduct.Product.Id</td>
+                                            <td>
+                                                <div class="media">
+                                                    <img src="~/img/Products/@dealOfWeekProduct.Product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                                </div>
+                                            </td>
+                                            <td>@dealOfWeekProduct.Product.Name</td>
+
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Detail","Product",new { productId = dealOfWeekProduct.Product.Id})">Details</a>
+                                                        <a onclick="return confirm('Are you sure to delete?')"
+                                                           class="dropdown-item"
+                                                           href="@Url.Action("Delete","Featured", new { ProductId = dealOfWeekProduct.Id, FeatureType="dow"})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featuredProducts">
+        <div class="page-content">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Index","Featured")">Featured Products</a>
+                    </div>
+                    @if (Model.FeaturedProducts.Count( ) < 48)
+                    {
+                        <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                            <a href="@Url.Action("Create","Featured",new { productType="f"})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add Featured (Max 36)</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Photo</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (FeaturedProduct featuredProduct in Model.FeaturedProducts)
+                                    {
+
+                                        <tr>
+                                            <td>@featuredProduct.Product.Id</td>
+                                            <td>
+                                                <div class="media">
+                                                    <img src="~/img/Products/@featuredProduct.Product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                                </div>
+                                            </td>
+                                            <td>@featuredProduct.Product.Name</td>
+
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Detail","Product",new { productId = featuredProduct.Product.Id})">Details</a>
+                                                        <a onclick="return confirm('Are you sure to delete?')"
+                                                           class="dropdown-item"
+                                                           href="@Url.Action("Delete","Featured", new { ProductId = featuredProduct.Id,FeatureType="f"})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bestRatedProducts">
+        <div class="page-content">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Index","Featured")">Best Rated Products</a>
+                    </div>
+                    @if (Model.FeaturedProducts.Count( ) < 48)
+                    {
+                        <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                            <a href="@Url.Action("Create","Featured",new { productType="br"})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add Best Rated</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Photo</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (BestRatedProduct bestRatedProduct in Model.BestRatedProducts)
+                                    {
+
+                                        <tr>
+                                            <td>@bestRatedProduct.Product.Id</td>
+                                            <td>
+                                                <div class="media">
+                                                    <img src="~/img/Products/@bestRatedProduct.Product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                                </div>
+                                            </td>
+                                            <td>@bestRatedProduct.Product.Name</td>
+
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Detail","Product",new { productId = bestRatedProduct.Product.Id})">Details</a>
+                                                        <a onclick="return confirm('Are you sure to delete?')"
+                                                           class="dropdown-item"
+                                                           href="@Url.Action("Delete","Featured", new { ProductId = bestRatedProduct.Id,FeatureType="br"})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="onSaleProducts">
+        <div class="page-content">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Index","Featured")">On Sale Products</a>
+                    </div>
+                    @if (Model.OnSaleProducts.Count( ) < 48)
+                    {
+                        <div class="col-md-6 d-md-flex d-none align-items-center justify-content-end">
+                            <a href="@Url.Action("Create","Featured",new { productType="osp"})" class="btn btn-sm btn-primary-soft br-3 p-x-15 mr-2">Add On Sale (Max 36)</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Photo</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (OnSaleProduct onSaleProduct in Model.OnSaleProducts)
+                                    {
+
+                                        <tr>
+                                            <td>@onSaleProduct.Product.Id</td>
+                                            <td>
+                                                <div class="media">
+                                                    <img src="~/img/Products/@onSaleProduct.Product.ProductPhotos[0].Photo.Path" class="mr-3 wth-35" alt="Product Photo">
+                                                </div>
+                                            </td>
+                                            <td>@onSaleProduct.Product.Name</td>
+
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <i class="icon-options-vertical btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </i>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="@Url.Action("Detail","Product",new { productId = onSaleProduct.Product.Id})">Details</a>
+                                                        <a onclick="return confirm('Are you sure to delete?')"
+                                                           class="dropdown-item"
+                                                           href="@Url.Action("Delete","Featured", new { ProductId = onSaleProduct.Id, FeatureType="osp"})">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

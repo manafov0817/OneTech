@@ -17,10 +17,8 @@
                     <form class="filters">
                         <p class="filter-title">Price</p>
                         <div class="price-filters">
-                            <input type="number" class="min-price" min="0" max="10000" id="min-price"
-                                   placeholder="$ min" step="10">
-                            <input type="number" class="max-price" min="0" max="10000" id="max-price"
-                                   placeholder="$ max" step="30">
+                            <b style="margin-right:20px">$</b>
+                            <input id="ex2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="30000" data-slider-step="5" data-slider-value="[0,30000]" />
                         </div>
                         <p class="filter-title">Colors</p>
                         @foreach (OptionValue color in Model.Colors)
@@ -50,18 +48,10 @@
                         <div class="product-found"> <span class="productFound">@Model.ProductCount</span> products found in @Model.CategoryName</div>
                         <ul class="page-sizes ml-auto">
                             <li><a class="page-size" href="@Url.Action("Index","Shop",new { pageSize = 1})">1</a></li>
-                            <li><a class="page-size" href="@Url.Action("Index","Shop",new { pageSize = 2})">2</a></li>
+                            <li><a class="page-size active" href="@Url.Action("Index","Shop",new { pageSize = 2})">2</a></li>
                             <li><a class="page-size" href="@Url.Action("Index","Shop",new { pageSize = 3})">3</a></li>
                             <li><a class="page-size" href="@Url.Action("Index","Shop",new { pageSize = 4})">4</a></li>
                         </ul>
-                        <div class="sort-by">
-                            <span>Sort By: Rate</span>
-                            <ul>
-                                <li>Rate</li>
-                                <li>Name</li>
-                                <li>Price</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="shop-products">
@@ -69,15 +59,41 @@
                     @foreach (Product product in Model.Products)
                     {
                         <div class="shop-product">
+                            @{
+                                decimal discountedPrice = (product.SellingPrice.GetValueOrDefault( ));
+                            }
+                            @if (product.DiscountWithPercent > 0)
+                            {
+                                discountedPrice = discountedPrice - (discountedPrice * product.DiscountWithPercent.GetValueOrDefault( ) / 100);
+                                <div class="shop-product-discount">
+                                    -@(product.DiscountWithPercent.GetValueOrDefault( ).ToString("0.####"))%
+                                </div>
+                            }
+                            @if (product.DiscountWithMoney > 0)
+                            {
+                                discountedPrice = discountedPrice - product.DiscountWithMoney.GetValueOrDefault( );
+                                <div class="shop-product-discount">
+                                    -@(product.DiscountWithMoney.GetValueOrDefault( ).ToString("0.####"))$
+                                </div>
+                            }
                             <div class="shop-product-photo">
                                 <a href="@Url.Action("Index","Product",new { productId = product.Id })">
                                     <img src="~/img/Products/@product.ProductPhotos[0].Photo.Path" alt="" srcset="">
                                 </a>
                             </div>
                             <div class="shop-product-content">
-                                <div class="price">
-                                    @product.SellingPrice $
-                                </div>
+                                @if (discountedPrice != product.SellingPrice.GetValueOrDefault( ))
+                                {
+                                    <div class="price discounted-shop-price">
+                                        $@discountedPrice.ToString("0.####") <span>$@product.SellingPrice.GetValueOrDefault( ).ToString("0.####")</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price">
+                                        $@((product.SellingPrice.GetValueOrDefault( )).ToString("0.####"))
+                                    </div>
+                                }
                                 <div class="product-name">
                                     @{
                                         if (product.Name.Length > 25)
@@ -98,17 +114,12 @@
                                     New
                                 </div>
                             }
-                            @if (product.DiscountWithPercent > 0)
+
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <div class="shop-product-discount">
-                                    -@product.DiscountWithPercent %
-                                </div>
-                            }
-                            @if (product.DiscountWithMoney > 0)
-                            {
-                                <div class="shop-product-discount">
-                                    -@((int)product.DiscountWithMoney)
-                                </div>
+                                <a href="" id="@product.Id" class="add-to-cart-from-shop">
+                                    ADD TO CART
+                                </a>
                             }
                         </div>
                     }
@@ -121,17 +132,26 @@
 
                         @for (int i = 1; i < pageCount + 1; i++)
                         {
-                            <li class="page-item active">
-                                <a class="page-link" href="@Url.Action("Index","Shop",new { pageSize = Model.PageSize, pageNumber=i})">@i</a>
-                            </li>
+                            if (i == 1)
+                            {
+                                <li class="page-item active">
+                                    <a class="page-link" href="@Url.Action("Index","Shop",new { pageSize = Model.PageSize, pageNumber=i})">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index","Shop",new { pageSize = Model.PageSize, pageNumber=i})">@i</a>
+                                </li>
+                            }
                         }
                     </ul>
                 </div>
-                <div hidden class="categoryId" id="@Model.CategoryId"></div>
+                <div hidden class="categoryId" id="@Model.CategoryId"> </div>
+                <input hidden class="productName" id="@Model.ProductName">
             </div>
         </div>
     </div>
-
 </section>
 
 <!-- Section 11 Start-->

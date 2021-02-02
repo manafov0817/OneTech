@@ -25,8 +25,9 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
         private readonly IBrandService _brandService;
         private readonly IProductService _productService;
         private readonly IPhotoService _photoService;
+        private readonly IRelateService _relateService;
 
-
+        private readonly IProductRelateService _productRelateService;
         private readonly IProductOptionValueService _productOptionValueService;
         private readonly IProductPhotoService _productPhotoService;
         private readonly IProductMainCategoryService _productMainCategoryService;
@@ -41,13 +42,14 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                                    IBrandService brandService,
                                    IProductService productService,
                                    IPhotoService photoService,
-
+                                   IProductRelateService productRelateService,
+                                   IRelateService relateService,
 
                                    IProductOptionValueService productOptionValueService,
                                    IProductPhotoService productPhotoService,
                                    IProductMainCategoryService productMainCategoryService,
                                    IProductCategoryService productCategoryService,
-                                   IProductSubCategoryService productSubCategoryService)
+                                   IProductSubCategoryService productSubCategoryService )
         {
             _categoryService = categoryService;
             _subCategoryService = subCategoryService;
@@ -58,6 +60,8 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             _brandModelService = brandModelService;
             _brandService = brandService;
             _photoService = photoService;
+            _productRelateService = productRelateService;
+            _relateService = relateService;
 
 
             _productOptionValueService = productOptionValueService;
@@ -79,6 +83,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
 
             ViewBag.MainCategories = _mainCategoryService.GetAll( );
             ViewBag.Colors = _optionValueService.GetAllColors( );
+            ViewBag.AllProducts = _productService.GetAll( );
             return View( );
         }
         [HttpPost]
@@ -99,6 +104,38 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 };
 
                 _productService.Create(product);
+
+                if (model.RelateProductId != 0)
+                {
+                    Product relatedProduct = _productService.GetWithRelateById(model.RelateProductId);
+
+                    if (relatedProduct.ProductRelate == null)
+                    {
+                        Relate relate = new Relate( );
+                        _relateService.Create(relate);
+                        ProductRelate productRelate = new ProductRelate( )
+                        {
+                            ProductId = model.RelateProductId,
+                            RelateId = relate.RelateId,
+                        };
+                        _productRelateService.Create(productRelate);
+                        ProductRelate productRelate2 = new ProductRelate( )
+                        {
+                            ProductId = product.Id,
+                            RelateId = relate.RelateId,
+                        };
+                        _productRelateService.Create(productRelate2);
+                    }
+                    else
+                    {
+                        ProductRelate productRelate = new ProductRelate( )
+                        {
+                            ProductId = product.Id,
+                            RelateId = relatedProduct.ProductRelate.RelateId,
+                        };
+                        _productRelateService.Create(productRelate);
+                    }
+                }
 
                 if (model.SubCategoryIds != null)
                 {
@@ -160,7 +197,6 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                                 }
                             }
                         }
-
                         if (model.CategoryIds != null)
                         {
                             foreach (int categoryId in model.CategoryIds)
@@ -301,16 +337,19 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                     }
                 }
 
-                if (model.SubCategoryIds.Count( ) > 0)
+                if (model.SubCategoryIds != null)
                 {
-                    foreach (int subCategoryId in model.SubCategoryIds)
+                    if (model.SubCategoryIds.Count( ) > 0)
                     {
-                        ProductSubCategory productSubCategory = new ProductSubCategory( )
+                        foreach (int subCategoryId in model.SubCategoryIds)
                         {
-                            ProductId = model.Id,
-                            SubCategoryId = subCategoryId
-                        };
-                        _productSubCategoryService.Create(productSubCategory);
+                            ProductSubCategory productSubCategory = new ProductSubCategory( )
+                            {
+                                ProductId = model.Id,
+                                SubCategoryId = subCategoryId
+                            };
+                            _productSubCategoryService.Create(productSubCategory);
+                        }
                     }
                 }
 
@@ -319,15 +358,18 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                     foreach (int categoryId in model.CategoryIds)
                     {
                         int counter = 0;
-                        foreach (int subCategoryId in model.SubCategoryIds.ToList( ))
+                        if (model.SubCategoryIds != null)
                         {
-                            SubCategory subCategory = _subCategoryService.GetSubCategoryWithCategoryAndMainCategorybyId(subCategoryId);
-                            if (subCategory.CategoryId != categoryId)
+                            foreach (int subCategoryId in model.SubCategoryIds.ToList( ))
                             {
-                                counter++;
+                                SubCategory subCategory = _subCategoryService.GetSubCategoryWithCategoryAndMainCategorybyId(subCategoryId);
+                                if (subCategory.CategoryId != categoryId)
+                                {
+                                    counter++;
+                                }
                             }
                         }
-                        if (counter != 0)
+                        if (counter == 0)
                         {
                             ProductCategory productCategory = new ProductCategory( )
                             {
@@ -344,24 +386,29 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                     foreach (int mainCategoryId in model.MainCategoryIds.ToList( ))
                     {
                         int counter = 0;
-                        foreach (int subCategoryId in model.SubCategoryIds)
+                        if (model.SubCategoryIds != null)
                         {
-                            SubCategory subCategory = _subCategoryService.GetSubCategoryWithCategoryAndMainCategorybyId(subCategoryId);
-                            if (subCategory.Category.MainCategoryId != mainCategoryId)
+                            foreach (int subCategoryId in model.SubCategoryIds)
                             {
-                                counter++;
+                                SubCategory subCategory = _subCategoryService.GetSubCategoryWithCategoryAndMainCategorybyId(subCategoryId);
+                                if (subCategory.Category.MainCategoryId != mainCategoryId)
+                                {
+                                    counter++;
+                                }
                             }
                         }
-
-                        foreach (int categoryId in model.CategoryIds)
+                        if (model.CategoryIds != null)
                         {
-                            Category category = _categoryService.GetCategoryWithMainCategoryById(categoryId);
-                            if (category.MainCategoryId != mainCategoryId)
+                            foreach (int categoryId in model.CategoryIds)
                             {
-                                counter++;
+                                Category category = _categoryService.GetCategoryWithMainCategoryById(categoryId);
+                                if (category.MainCategoryId != mainCategoryId)
+                                {
+                                    counter++;
+                                }
                             }
                         }
-                        if (counter != 0)
+                        if (counter == 0)
                         {
                             ProductMainCategory productMainCategory = new ProductMainCategory( )
                             {
@@ -586,8 +633,8 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 Product product = _productService.GetById(productId);
                 product.DiscountStart = null;
                 product.DiscountEnd = null;
-                product.DiscountWithMoney = null;
-                product.DiscountWithPercent = null;
+                product.DiscountWithMoney = 0;
+                product.DiscountWithPercent = 0;
                 _productService.Update(product);
                 return RedirectToAction("DiscountList", "Product");
             }

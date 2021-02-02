@@ -1,0 +1,44 @@
+﻿@model FeaturedAddModel
+<div class="container">
+    <div class="page-content">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="@Url.Action("Index","Featured")">Featured</a>
+                    <span>Create</span>
+                </div>              
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body txt-14 pdn-sm-40">
+                        <form method="post" action="@Url.Action("Create","Featured")">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row mb-4">
+                                        <label asp-for="ProductId" class="col-md-3">Choose Product</label>
+                                        <div class="col-md-9 color-height">
+                                            <select asp-for="ProductId" class="ui search dropdown">
+                                                @foreach (Product product in ViewBag.AllProducts)
+                                                {
+                                                    <option value="@product.Id">@product.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <span asp-validation-for="ProductId"></span>
+                                    </div>
+                                   <input hidden asp-for="FeatureType"/>
+                                    <button type="submit" name="submit" id="btnSubmit"
+                                            class="btn btn-block btn-primary">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
