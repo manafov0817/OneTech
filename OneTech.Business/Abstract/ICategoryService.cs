@@ -5,13 +5,9 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface ICategoryService
-    {
-        Category GetById ( int id );
-        List<Category> GetAll ();
-        void Create ( Category entity );
-        void Update ( Category entity );
-        void Delete ( Category entity );
+    public interface ICategoryService : IGenericeService<Category>
+    { 
+        List<Category> GetAll (); 
         List<Category> GetAllCategoriesWithMainCategory ();
         List<Category> GetCategoriesByMainCategoryId ( int id );
         Category GetCategoryWithMainCategoryById ( int id );

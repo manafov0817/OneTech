@@ -5,12 +5,8 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IPhotoService
-    {
-        Photo GetById ( int id );
-        List<Photo> GetAll ();
-        void Create ( Photo entity );
-        void Update ( Photo entity );
-        void Delete ( Photo entity );
+    public interface IPhotoService : IGenericeService<Photo>
+    { 
+        List<Photo> GetAll (); 
     }
 }

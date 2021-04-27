@@ -5,12 +5,8 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IPopularCategoryService
-    {
-        PopularCategory GetById ( int id );
-        List<PopularCategory> GetAll ();
-        void Create ( PopularCategory entity );
-        void Update ( PopularCategory entity );
-        void Delete ( PopularCategory entity );
+    public interface IPopularCategoryService : IGenericeService<PopularCategory>
+    { 
+        List<PopularCategory> GetAll (); 
     }
 }

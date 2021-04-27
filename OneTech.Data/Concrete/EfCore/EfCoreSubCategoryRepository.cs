@@ -38,10 +38,10 @@ namespace OneTech.Data.Concrete.EfCore
             using (var context = new OneTechDbContext( ))
             {
                 SubCategory subCategory = context.SubCategories
-                                                         .Where(sc => sc.SubCategoryId == id)
-                                                         .Include(sc => sc.Category)
-                                                         .ThenInclude(c => c.MainCategory)
-                                                         .FirstOrDefault( );
+                                                    .Where(sc => sc.SubCategoryId == id)
+                                                    .Include(sc => sc.Category)
+                                                    .ThenInclude(c => c.MainCategory)
+                                                    .FirstOrDefault( );
                 return subCategory;
             }
         }

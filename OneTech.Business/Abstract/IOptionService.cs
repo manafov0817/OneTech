@@ -5,14 +5,9 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IOptionService
-    {
-        Option GetById ( int id );
-        List<Option> GetAll ();
-        void Create ( Option entity );
-        void Update ( Option entity );
-        void Delete ( Option entity );
+    public interface IOptionService : IGenericeService<Option>
+    { 
+        List<Option> GetAll (); 
         Option GetByName ( string value );
-
     }
 }

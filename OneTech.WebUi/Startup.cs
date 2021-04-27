@@ -76,7 +76,7 @@ namespace OneTech.WebUi
             services.AddScoped<ICartService, CartManager>( );
             services.AddScoped<ICartItemService, CartItemManager>( );
             services.AddScoped<IContactService, ContactManager >( );
-            services.AddScoped<IBannerService, BannerManager>( );
+            services.AddScoped<IBannerService, BannerManager>( ); 
             services.AddScoped<IOnSaleProductService, OnSaleProductManager>( );
             services.AddScoped<IFeaturedProductService, FeaturedProductManager>( );
             services.AddScoped<IDealOfWeekProductService, DealOfWeekProductManager>( );
@@ -137,6 +137,7 @@ namespace OneTech.WebUi
                 };
 
             });
+
             services.AddScoped<IProductRepository, EfCoreProductRepository>( );
 
             services.AddScoped<IProductService, ProductManager>( );

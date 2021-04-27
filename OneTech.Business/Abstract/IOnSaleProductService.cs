@@ -5,13 +5,9 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IOnSaleProductService
-    {
-        OnSaleProduct GetById ( int id );
-        List<OnSaleProduct> GetAll ();
-        void Create ( OnSaleProduct entity );
-        void Update ( OnSaleProduct entity );
-        void Delete ( OnSaleProduct entity );
+    public interface IOnSaleProductService : IGenericeService<OnSaleProduct>
+    { 
+        List<OnSaleProduct> GetAll (); 
         List<OnSaleProduct> GetAllProducts ();
     }
 }

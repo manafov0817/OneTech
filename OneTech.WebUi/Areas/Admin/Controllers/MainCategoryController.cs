@@ -29,7 +29,6 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
         {
             return View( );
         }
-
         [HttpPost]
         public IActionResult Create ( MainCategoryModel model )
         {
@@ -81,8 +80,8 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 _mainCategoryService.Delete(_mainCategoryService.GetById(mainCategoryId));
                 return RedirectToAction("Index", "MainCategory");
             }
-           
-            return View();
+
+            return View( );
         }
     }
 }

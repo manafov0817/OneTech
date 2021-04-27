@@ -86,6 +86,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             ViewBag.AllProducts = _productService.GetAll( );
             return View( );
         }
+
         [HttpPost]
         public IActionResult Create ( ProductModel model )
         {
@@ -265,6 +266,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                     };
                     _productPhotoService.Create(productPhoto);
                 }
+
                 return RedirectToAction("Index", "Product");
             }
             ViewBag.Options = _optionService.GetAll( );
@@ -300,6 +302,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View(productId);
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit ( ProductEditModel model )
         {
@@ -500,6 +503,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             ViewBag.Colors = _optionValueService.GetAllColors( );
             return View(model);
         }
+
         public IActionResult Delete ( int productId )
         {
             if (ModelState.IsValid)
@@ -562,16 +566,17 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View(productId);
         }
+
         public IActionResult Detail ( int productId )
         {
             return View(_productService.GetProductForDetailById(productId));
         }
 
-
         public IActionResult DiscountList ()
         {
             return View(_productService.GetAllDiscountedProducts( ));
         }
+
         public IActionResult CreateDiscount ( string discountType, int productId )
         {
             if (discountType == "percent")
@@ -600,6 +605,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View( );
         }
+
         [HttpPost]
         public IActionResult CreateDiscount ( ProductForDiscount model )
         {
@@ -626,6 +632,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View(model);
         }
+
         public IActionResult RemoveDiscount ( int productId )
         {
             if (productId != 0)
@@ -640,6 +647,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             }
             return View( );
         }
+
         [HttpPost]
         public JsonResult FillCategory ( int[] ids )
         {
@@ -666,6 +674,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult FillSubCategory ( int[] ids )
         {
@@ -694,6 +703,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult FillBrandModels ( int id )
         {
@@ -714,6 +724,7 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult FillOptionValues ( int[] ids )
         {

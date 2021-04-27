@@ -5,12 +5,8 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IBrandService
-    {
-        Brand GetById ( int id );
+    public interface IBrandService : IGenericeService<Brand>
+    { 
         List<Brand> GetAll ();
-        void Create ( Brand entity );
-        void Update ( Brand entity );
-        void Delete ( Brand entity );
-    }
+     }
 }

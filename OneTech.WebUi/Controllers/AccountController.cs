@@ -112,6 +112,7 @@ namespace OneTech.WebUi.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+
             if (result.Succeeded)
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -218,19 +219,11 @@ namespace OneTech.WebUi.Controllers
             return View(model);
         }
 
-        //public IActionResult ResetPassword ( string userId, string token )
-        //{
-
-        //}
-
         public async Task<IActionResult> Logout ()
         {
             await _signinManager.SignOutAsync( );
             return RedirectToAction("Index", "Home");
         }
-
-
-
 
         private void CreateMessage ( string message, string alerttype )
         {

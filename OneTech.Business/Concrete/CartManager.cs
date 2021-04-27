@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OneTech.Business.Concrete
 {
-    public class CartManager : ICartService
+    public partial class CartManager : ICartService
     {
         private ICartRepository _cartRepository;
         public CartManager ( ICartRepository cartRepository )
@@ -35,6 +35,10 @@ namespace OneTech.Business.Concrete
             return _cartRepository.GetById(id);
         }
 
+
+    }
+    public partial class CartManager : ICartService
+    {
         public Cart GetByUserId ( string id )
         {
             return _cartRepository.GetByUserId(id);

@@ -100,7 +100,6 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             return View(model);
         }
 
-
         public IActionResult Delete ( int colorId )
         {
             if (colorId != 0)

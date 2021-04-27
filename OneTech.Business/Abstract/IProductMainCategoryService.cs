@@ -5,12 +5,8 @@ using System.Text;
 
 namespace OneTech.Business.Abstract
 {
-    public interface IProductMainCategoryService
-    {
-        ProductMainCategory GetById ( int id );
-        List<ProductMainCategory> GetAll ();
-        void Create ( ProductMainCategory entity );
-        void Update ( ProductMainCategory entity );
-        void Delete ( ProductMainCategory entity );
+    public interface IProductMainCategoryService : IGenericeService<ProductMainCategory>
+    { 
+        List<ProductMainCategory> GetAll (); 
     }
 }

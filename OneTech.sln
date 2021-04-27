@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneTech.Entity", "OneTech.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneTech.Business", "OneTech.Business\OneTech.Business.csproj", "{B769D4DE-CD36-412A-98A8-D18336900258}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneTech.WepApi", "OneTech.WepApi\OneTech.WepApi.csproj", "{713F2557-5709-430C-B055-9765DE769FBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B769D4DE-CD36-412A-98A8-D18336900258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B769D4DE-CD36-412A-98A8-D18336900258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B769D4DE-CD36-412A-98A8-D18336900258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713F2557-5709-430C-B055-9765DE769FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713F2557-5709-430C-B055-9765DE769FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713F2557-5709-430C-B055-9765DE769FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713F2557-5709-430C-B055-9765DE769FBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

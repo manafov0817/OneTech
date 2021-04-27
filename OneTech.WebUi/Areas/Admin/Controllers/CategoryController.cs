@@ -32,7 +32,6 @@ namespace OneTech.WebUi.Areas.Admin.Controllers
             return View(categories);
         }
 
-
         public IActionResult Create ()
         {
             List<MainCategory> mainCategories = _mainCategoryService.GetAll( );

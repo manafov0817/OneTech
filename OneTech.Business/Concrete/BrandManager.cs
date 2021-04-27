@@ -16,6 +16,7 @@ namespace OneTech.Business.Concrete
         }
         public void Create ( Brand entity )
         {
+            
             _brandRepository.Create(entity);
         }
 
